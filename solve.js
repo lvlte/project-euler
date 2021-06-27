@@ -16,7 +16,6 @@ const path = require('path');
 
 const pid = ('' + process.argv[2]).padStart(3, '0');
 const pbList = fs.readdirSync(path.resolve(__dirname, 'problems/'));
-
 let pb = pbList.filter(f => f.startsWith(pid+'-') && f.endsWith('.js'));
 
 if (!pb.length) {
@@ -24,10 +23,15 @@ if (!pb.length) {
   return;
 }
 
-const pbName = pb[0].split(/[-.]/)[1].replace(/_/g, ' ');
-
 const Problem = require ('./problems/' + pb[0]);
-const solution = Problem.solve();
+
+const pbName = pb[0].split(/[-.]/)[1].replace(/_/g, ' ');
+const timerLabel = '-> run time ';
 
 console.log(`\nProblem ${pid} - ${pbName}`);
+console.time(timerLabel);
+
+const solution = Problem.solve();
+
 console.log('-> solution: ', solution);
+console.timeEnd(timerLabel);
