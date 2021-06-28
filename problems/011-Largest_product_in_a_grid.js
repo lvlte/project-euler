@@ -36,20 +36,24 @@ const grid = `
 01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48
 `.split('\n').filter(l => l).map(row => row.split(' ').map(n => +n));
 
+// How many adjacent numbers
+const nAdj = 4;
+
+// Return the product of nAdj adjacent numbers in a given direction.
+const r  = (i,j) => product(grid[i].slice(j, j+nAdj));                    // ⭲
+const d  = (i,j) => product(grid.slice(i, i+nAdj).map(r => r[j]));        // ⭳
+const dr = (i,j) => product(grid.slice(i, i+nAdj).map(r => r[j++]));      // ⭸
+const ur = (i,j) => product(grid.slice(i, i+nAdj).map(r => r[--j+nAdj])); // ⭷
 
 this.solve = function () {
-  const len = grid.length;
+  const k = grid.length - nAdj + 1;
   let max = 0;
 
-  for (let i=0; i<len-4; i++) {
-    for (let j=0; j<len-4; j++) {
-      max = Math.max(max,
-        product([ grid[i][j], grid[i][j+1], grid[i][j+2], grid[i][j+3] ]),       // ⭲
-        product([ grid[i][j], grid[i+1][j], grid[i+2][j], grid[i+3][j] ]),       // ⭳
-        product([ grid[i][j], grid[i+1][j+1], grid[i+2][j+2], grid[i+3][j+3] ]), // ⭸
-        product([ grid[i+3][j], grid[i+2][j+1], grid[i+1][j+2], grid[i][j+3] ]), // ⭷
-      );
-    }
+  for (let i=0; i<k; i++) {
+    for (let j=0; j<k; j++)
+      max = Math.max(max, r(i,j), d(i,j), dr(i,j), ur(i,j));
+    for (let j=k-1; j<grid.length; j++)
+      max = Math.max(max, r(j,i), d(i,j));
   }
 
   return max;
