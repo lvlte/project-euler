@@ -25,7 +25,7 @@ this.solve = function () {
   // ... then we have :
   //  xxxxxxxxxxx[...ignored] <- sum of the numbers truncated after 1st 10 digits.
   // +       1000[0000000...] <- max sum diff considering only truncated digits.
-  // So here ^ we got the position of the worst case holdback which is in 8th
+  // So here ^ we got the position of the "worst case' carry which is in 8th
   // position, we need to "push it forward" to the 11th position so that we can
   // work out the first ten digits without having to compute the whole number.
 

@@ -10,4 +10,4 @@
 
 const { sum } = require('../lib/utils')
 
-this.solve = () => sum((''+2n**1000n).split('').map(digit => +digit));
+this.solve = () => sum((''+2n**1000n).split(''));
