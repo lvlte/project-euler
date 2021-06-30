@@ -23,8 +23,7 @@ this.solve = function () {
 
   // There must be a more efficient way.. generate all the permutations, then
   // converted as a string sort them in lexicographic order.
-  // const p = permute(set).map(p => p.join('')).sort((a, b) => a.localeCompare(b));
-  const p = permute(set).sort((a, b) => a.join('').localeCompare(b.join('')));
+  const p = permute(set).map(p => p.join('')).sort((a, b) => a.localeCompare(b));
 
   return p[pos-1];
 }
