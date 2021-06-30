@@ -23,12 +23,10 @@
  * ;o)
  */
 
-const { readFileSync } = require('fs');
-const { resolve } = require('path');
+const { load } = require('../lib/utils');
 
-const fpath = resolve(__dirname, '../res/p067_triangle.txt');
-const data = readFileSync(fpath, {encoding:'utf8', flag:'r'});
-const grid = data.split(/\r\n|\n/).filter(l => l).map(r => r.split(' ').map(n => +n));
+const data = load('p067_triangle.txt').split(/\r\n|\n/).filter(l => l);
+const grid = data.map(r => r.split(' ').map(n => +n));
 
 this.solve = function () {
   /** @see 018-Maximum_path_sum_I.js */
