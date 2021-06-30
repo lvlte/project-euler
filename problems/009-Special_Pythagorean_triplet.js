@@ -14,7 +14,7 @@
  * Find the product abc.
  */
 
-const Utils = require('../lib/utils.js');
+const { divisors } = require('../lib/utils.js');
 
 this.solve = function () {
   // @see Euclid's m,n formula
@@ -46,7 +46,7 @@ this.solve = function () {
   // know there is only one triple to find.
 
   const p = 1000;
-  const div = Utils.divisors(p/2).slice(1);
+  const div = divisors(p/2).sort((a, b) => a - b).slice(1);
 
   let a,b,c;
 
