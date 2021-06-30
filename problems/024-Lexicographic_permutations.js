@@ -15,7 +15,7 @@
  * 5, 6, 7, 8 and 9?
  */
 
-const { range, permute } = require('../lib/utils');
+const { range, permute, lehmerCode, factorial } = require('../lib/utils');
 
 this.solve = function () {
   const set = range(10);
@@ -23,7 +23,21 @@ this.solve = function () {
 
   // There must be a more efficient way.. generate all the permutations, then
   // converted as a string sort them in lexicographic order.
-  const p = permute(set).map(p => p.join('')).sort((a, b) => a.localeCompare(b));
+  // const p = permute(set).map(p => p.join('')).sort((a, b) => a.localeCompare(b));
 
-  return p[pos-1];
+  const p = permute(set);
+
+  // Use Lehmer code to index permutations.
+  let orderedP = Array(p.length);
+  for (let i=0; i<p.length; i++) {
+    // Convert code from mixed/factorial base to base 10
+    const code = lehmerCode(p[i]);
+    let index = 0;
+    for (let i=0; i<code.length; i++) {
+      index += code[i]*factorial(code.length - i - 1);
+    }
+    orderedP[index] = p[i];
+  }
+
+  return +orderedP[pos-1].join('');
 }
