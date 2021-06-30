@@ -18,14 +18,14 @@ this.solve = function () {
   // const { bigFact } = require('../lib/utils');
   // const number = bigFact(n); huhu
 
-  // Consider each digit*powerOf10 separately, right-to-left ([ones, tens, ...])
+  // Consider each digit*10^exp separately, right-to-left ([ones, tens, ...]).
   let digits = [1];
   for (let x=2; x<=n; x++) {
     let carry = 0;
-    for (let i=0; i<digits.length; i++) {
-      const prod = digits[i]*x + carry;
+    for (let exp=0; exp<digits.length; exp++) {
+      const prod = digits[exp]*x + carry;
       carry = Math.floor(prod/10);
-      digits[i] = prod % 10;
+      digits[exp] = prod % 10;
     }
     while (carry > 0) {
       digits.push(carry%10);

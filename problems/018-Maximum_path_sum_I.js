@@ -37,12 +37,11 @@
  * and requires a clever method! ;o)
  */
 
-const { readFileSync } = require('fs');
-const { resolve } = require('path');
 
-const fpath = resolve(__dirname, '../res/p018.txt');
-const data = readFileSync(fpath, {encoding:'utf8', flag:'r'});
-const grid = data.split(/\r\n|\n/).filter(l => l).map(r => r.split(' ').map(n => +n));
+const { load } = require('../lib/utils');
+
+const data = load('p018.txt').split(/\r\n|\n/).filter(l => l);
+const grid = data.map(r => r.split(' ').map(n => +n));
 
 this.solve = function () {
 

@@ -7,11 +7,8 @@
  * 50-digit numbers.
  */
 
-const { readFileSync } = require('fs');
-const { resolve } = require('path');
-
-const fpath = resolve(__dirname, '../res/p013.txt');
-const numbers = readFileSync(fpath, {encoding:'utf8', flag:'r'}).split(/\r\n|\n/).filter(l => l);
+const { load } = require('../lib/utils');
+const numbers = load('p013.txt').split(/\r\n|\n/).filter(l => l);
 
 this.solve = function () {
   // Considering extreme case where all 100 numbers ends with 9 after the 10th
