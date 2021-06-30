@@ -10,4 +10,31 @@
 
 const { sum } = require('../lib/utils')
 
-this.solve = () => sum((''+2n**1000n).split(''));
+// Lazy solution
+// this.solve = () => sum((''+2n**1000n).split(''));
+
+this.solve = function () {
+  const pow = 1000;
+  const n = 2;
+
+  // Consider each digit*10^exp separately, right-to-left ([ones, tens, ...]).
+  let digits = [n];
+  let p = 1;
+
+  while (++p <= pow) {
+    let carry = 0;
+    for (let exp=0; exp<digits.length; exp++) {
+      const prod = digits[exp]*n + carry;
+      carry = Math.floor(prod/10);
+      digits[exp] = prod % 10;
+    }
+    while (carry > 0) {
+      digits.push(carry%10);
+      carry = Math.floor(carry/10);
+    }
+  }
+
+  const number = digits.reverse().join('');
+
+  return sum((''+number).split(''));
+}
