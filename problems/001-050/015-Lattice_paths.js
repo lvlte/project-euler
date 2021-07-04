@@ -22,7 +22,7 @@
  * How many such routes are there through a 20×20 grid?
  */
 
-const { binomialCoefCentral } = require('../../lib/utils.js');
+const { binomialCoefCentral } = require('../../lib/math.js');
 
 this.solve = function () {
   // The number of possible paths of length 2n from one corner to the opposite

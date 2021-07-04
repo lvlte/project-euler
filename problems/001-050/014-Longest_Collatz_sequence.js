@@ -22,7 +22,7 @@
  * NOTE: Once the chain starts the terms are allowed to go above one million.
  */
 
-const { collatz } = require('../../lib/sequence.js');
+const { collatz } = require('../../lib/sequences.js');
 
 this.solve = function () {
   const limit = 1_000_000;

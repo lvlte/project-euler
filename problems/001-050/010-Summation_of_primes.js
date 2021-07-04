@@ -8,13 +8,13 @@
  * Find the sum of all the primes below two million.
  */
 
-const Prime = require('../../lib/prime.js');
+const { iterPrimes } = require('../../lib/prime.js');
 
 this.solve = function () {
   const limit = 2_000_000;
   let sum = 0;
 
-  for (const prime of Prime.iterPrimes(limit))
+  for (const prime of iterPrimes(limit))
     sum += prime;
 
   return sum;

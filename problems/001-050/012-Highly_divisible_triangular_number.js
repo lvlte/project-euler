@@ -25,7 +25,7 @@
  * divisors?
  */
 
-const { divisors } = require('../../lib/utils.js');
+const { divisors } = require('../../lib/math.js');
 
 this.solve = function () {
   let t = 0, n = 0;

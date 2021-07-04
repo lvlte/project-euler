@@ -15,7 +15,8 @@
  * What is the total of all the name scores in the file?
  */
 
-const { load, sum } = require('../../lib/utils');
+const { load } = require('../../lib/utils');
+const { sum } = require('../../lib/math');
 const names = load('p022_names.txt').replace(/"/g, '').split(',');
 
 this.solve = function () {

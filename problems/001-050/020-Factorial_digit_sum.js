@@ -11,7 +11,7 @@
  * Find the sum of the digits in the number 100!
  */
 
-const { sum } = require('../../lib/utils');
+const { sum } = require('../../lib/math');
 
 this.solve = function () {
   const n = 100;

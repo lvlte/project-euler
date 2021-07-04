@@ -14,7 +14,7 @@
  * Find the product abc.
  */
 
-const { divisors } = require('../../lib/utils.js');
+const { divisors } = require('../../lib/math.js');
 
 this.solve = function () {
   // @see Euclid's m,n formula

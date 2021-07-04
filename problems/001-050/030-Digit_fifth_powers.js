@@ -18,7 +18,7 @@
  * powers of their digits.
  */
 
-const { sum } = require('../../lib/utils');
+const { sum } = require('../../lib/math');
 
 this.solve = function () {
   // Finding numbers that can be written as the sum of fifth powers of their
