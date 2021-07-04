@@ -8,7 +8,7 @@
  * What is the sum of the digits of the number 2¹⁰⁰⁰ ?
  */
 
-const { sum } = require('../lib/utils')
+const { sum } = require('../../lib/utils')
 
 // Lazy solution
 // this.solve = () => sum((''+2n**1000n).split(''));

@@ -10,8 +10,7 @@
  * greatest product. What is the value of this product?
  */
 
-const Utils = require('../lib/utils.js');
-const product = Utils.product;
+const { product } = require('../../lib/utils');
 
 const digits = `
 73167176531330624919225119674426574742355349194934

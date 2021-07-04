@@ -9,7 +9,7 @@
  * What is the 10 001st prime number ?
  */
 this.solve = function () {
-  const P = require('../lib/prime.js');
+  const P = require('../../lib/prime.js');
 
   const len = 10001;
   const primes = P.getNPrimes(len);

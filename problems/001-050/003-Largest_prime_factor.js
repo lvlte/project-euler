@@ -7,7 +7,7 @@
  * What is the largest prime factor of the number 600851475143 ?
  */
 this.solve = function (n=600851475143) {
-  const P = require('../lib/prime.js');
+  const P = require('../../lib/prime.js');
   const primes = P.primeFactors(n);
   return primes[primes.length-1];
 }

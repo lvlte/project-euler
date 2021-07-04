@@ -28,7 +28,7 @@
  * 1000 digits?
  */
 
-const { fibonnaci } = require('../lib/sequence');
+const { fibonnaci } = require('../../lib/sequence');
 
 this.solve = function () {
   const nDigits = 1000;

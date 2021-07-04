@@ -23,7 +23,7 @@
  * cycle in its decimal fraction part.
  */
 
-const { decExp } = require('../lib/utils')
+const { decExp } = require('../../lib/utils')
 
 this.solve = function () {
   const limit = 1000;

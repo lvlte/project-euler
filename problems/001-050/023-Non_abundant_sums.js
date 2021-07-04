@@ -23,7 +23,7 @@
  * of two abundant numbers.
  */
 
-const { sum, divisors } = require('../lib/utils');
+const { sum, divisors } = require('../../lib/utils');
 
 this.solve = function () {
   const nMax = 28_123;

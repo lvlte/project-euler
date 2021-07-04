@@ -28,7 +28,7 @@
  * starting with n = 0.
  */
 
-const { getPrimes, isPrime } = require('../lib/prime');
+const { getPrimes, isPrime } = require('../../lib/prime');
 
 this.solve = function () {
   // The first thing is that n² + an + b must produce a prime starting with n=0,

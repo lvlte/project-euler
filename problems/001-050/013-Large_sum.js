@@ -7,7 +7,7 @@
  * 50-digit numbers.
  */
 
-const { load } = require('../lib/utils');
+const { load } = require('../../lib/utils');
 const numbers = load('p013.txt').split(/\r\n|\n/).filter(l => l);
 
 this.solve = function () {

@@ -15,7 +15,7 @@
  * 5, 6, 7, 8 and 9?
  */
 
-const { range, permute, lehmerCode, factorial } = require('../lib/utils');
+const { range, permute, lehmerCode, factorial } = require('../../lib/utils');
 
 this.solve = function () {
   const set = range(10);

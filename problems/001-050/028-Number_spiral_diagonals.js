@@ -19,7 +19,7 @@
  * formed in the same way?
  */
 
-const { range, sum } = require('../lib/utils');
+const { range, sum } = require('../../lib/utils');
 
 this.solve = function () {
   // Considering any n*n grid, n ⋹ 2N+1, we just need to sum the four corners

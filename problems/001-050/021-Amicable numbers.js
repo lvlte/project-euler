@@ -18,7 +18,7 @@
  * Evaluate the sum of all the amicable numbers under 10000.
  */
 
-const { sum, divisors } = require('../lib/utils')
+const { sum, divisors } = require('../../lib/utils')
 
 this.solve = function () {
   const limit = 10_000;
