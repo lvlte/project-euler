@@ -16,15 +16,12 @@
  */
 
 const { range } = require('../../lib/utils');
-const { permute, lehmerCode, factorial } = require('../../lib/math');
+const { factorial } = require('../../lib/math');
+const { permute, lehmerCode } = require('../../lib/combinatorics');
 
 this.solve = function () {
   const set = range(10);
   const pos = 10**6;
-
-  // There must be a more efficient way.. generate all the permutations, then
-  // converted as a string sort them in lexicographic order.
-  // const p = permute(set).map(p => p.join('')).sort((a, b) => a.localeCompare(b));
 
   const p = permute(set);
 
