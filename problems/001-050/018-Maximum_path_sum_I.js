@@ -72,7 +72,7 @@ this.solve = function () {
    *    Again, considering any number, the best path depends on the two adjacent
    *    numbers below it, not the number itself. That's why we have to compute
    *    the max sum from bottom to top, replacing each number with the sum of
-   *    that number plus the greater of the two adjacent numbers computed from
+   *    that number plus the greatest of the two adjacent numbers computed from
    *    the previous row.
    *
    *          .          .              3              15
