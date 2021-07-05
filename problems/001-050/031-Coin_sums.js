@@ -72,4 +72,9 @@ this.solve = function () {
   combine(coins);
 
   return count;
+
+  // Actually we count the restricted partitions of n : given a restricted set
+  // of coins, we count the ways to make n=200.
+  // @see http://oeis.org/wiki/Restricted_partitions
+  // @see http://oeis.org/wiki/Partitions
 }
