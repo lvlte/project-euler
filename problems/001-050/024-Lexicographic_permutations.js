@@ -16,7 +16,7 @@
  */
 
 const { range } = require('../../lib/utils');
-const { factorial } = require('../../lib/math');
+const { mfact } = require('../../lib/math');
 const { permute, lehmerCode } = require('../../lib/combinatorics');
 
 this.solve = function () {
@@ -32,7 +32,7 @@ this.solve = function () {
     const code = lehmerCode(p[i]);
     let index = 0;
     for (let i=0; i<code.length; i++) {
-      index += code[i]*factorial(code.length - i - 1);
+      index += code[i]*mfact(code.length - i - 1);
     }
     orderedP[index] = p[i];
   }
