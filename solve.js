@@ -27,6 +27,8 @@ if (!pb.length) {
   return;
 }
 
+require (`./lib/utils`);
+
 const Problem = require (`./problems/${pbDir}/${pb[0]}`);
 
 const pbName = pb[0].split(/[-.]/)[1].replace(/_/g, ' ');
