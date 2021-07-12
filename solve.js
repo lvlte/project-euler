@@ -16,7 +16,7 @@ const path = require('path');
 
 const pid = ('' + process.argv[2]).padStart(3, '0');
 
-const i = Math.floor(+pid/50);
+const i = Math.floor((+pid-1)/50);
 const pbDir = [i*50+1, (i+1)*50].map(n => (''+n).padStart(3, '0')).join('-');
 
 const pbList = fs.readdirSync(path.resolve(__dirname, 'problems/' + pbDir));
