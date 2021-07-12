@@ -44,5 +44,3 @@ this.solve = function () {
 
   return whichP;
 }
-
-T
