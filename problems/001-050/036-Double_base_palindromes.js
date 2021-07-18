@@ -12,22 +12,15 @@
  * leading zeros.
  */
 
+const { isPalindromic } = require('../../lib/utils');
+
 this.solve = function () {
   const limit = 1_000_000;
-
-  // Whether or not the given number n is palindromic.
-  const isPalindromic = (n) => {
-    if (n < 10)
-      return true;
-    const s = n.toString();
-    return s === s.split('').reverse().join('');
-  };
-
   let sum = 0;
 
   // brute force..
   for (let n=0; n<limit; n++) {
-    if (isPalindromic(n) && isPalindromic(n.toBinary()))
+    if (isPalindromic(''+n) && isPalindromic(n.toBinary()))
       sum += n;
   }
 

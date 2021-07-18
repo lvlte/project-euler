@@ -8,6 +8,9 @@
  *
  * Find the largest palindrome made from the product of two 3-digit numbers.
  */
+
+const { isPalindromic } = require('../../lib/utils');
+
 this.solve = function () {
   const d = 3; // number of digits
   const min = 10**(d-1);
@@ -20,7 +23,7 @@ this.solve = function () {
   for (let m=max; m>min; m--) {
     for (let n=m; n>min; n--) {
       const x = m * n;
-      if (!isPalindromic(x))
+      if (!isPalindromic(''+x))
         continue;
       if (x > largest.x)
         largest = { x, m, n };
@@ -31,11 +34,3 @@ this.solve = function () {
 
   return largest.x;
 }
-
-/**
- * Returns whether or not the given number n is palindromic.
- */
-function isPalindromic (n) {
-  const s = n.toString();
-  return s === s.split('').reverse().join('');
-};
