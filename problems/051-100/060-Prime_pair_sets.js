@@ -28,7 +28,7 @@ this.solve = function () {
   // This is kind of brute force so it's probably not the best option for larger
   // prime sets.
 
-  const setLen = 6;
+  const setLen = 5;
 
   // Checks whether or not the given primes concatenate to produce another one.
   const primeConcat = (a, b) => isPrime(+(''+a+b)) && isPrime(+(''+b+a));
