@@ -29,6 +29,7 @@ this.solve = function () {
   // and denominator as S(n) = 2*S(n-1) + S(n-2)
 
   // @see `../ref/Period of the Continued Fraction of √n.pdf`
+  // @see _Math.sqrtExpansions(n, maxExpansions)
 
   // Expansion series for the square root of two [ [p, q], ...]
   let S = Array(maxExpansions);
