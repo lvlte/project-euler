@@ -31,7 +31,10 @@ this.solve = function () {
 
   // The totient can be computed using the product of the distinct primes p
   // dividing n :
-  //  φ(n) = n*∏[p|n](1-1/p)    @see Prime.totient(n)
+  //  φ(n) = n*∏[p|n](1-1/p)
+
+  // @see https://mathworld.wolfram.com/TotientFunction.html
+  // @see Prime.totient(n)
 
   // We need to find the maxmimum value of n/φ(n) for n <= nMax :
   //  n/φ(n) = n/(n*∏[p|n](1-1/p))
@@ -48,7 +51,7 @@ this.solve = function () {
   //  if 5 is a factor of n, the whole is multiplied by 4/5,
   //  ...
   // Therefore, the more distinct prime factors we have and the smaller they
-  // are, the more fast Xn decreases as n increases.
+  // are, the faster Xn decreases.
 
   // So we can minimize Xn and thus maximize n/φ(n) for n <= nMax by computing
   // the longest product of the smallest distinct primes of n which stays below
