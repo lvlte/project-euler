@@ -44,10 +44,7 @@ this.solve = function () {
   // d ≤ 1,000,000, just get the left neighbour of 3/7 in the Farey sequence of
   // order d=1000000 using the proper algorithm.
 
-  const d = 1_000_000;
-  const [a, b] = [3, 7];
+  const [n,] = fareyLeft(3, 7, 1_000_000);
 
-  const [p,] = fareyLeft(3, 7, d);
-
-  return p;
+  return n;
 }
