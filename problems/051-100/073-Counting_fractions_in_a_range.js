@@ -17,7 +17,6 @@
  * proper fractions for d ≤ 12,000?
  */
 
-const { summatoryTotient} = require('../../lib/prime');
 const { fareyNext, fareyRight } = require('../../lib/sequences');
 
 this.solve = function () {
