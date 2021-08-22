@@ -1,10 +1,5 @@
-from ctypes import CDLL
 import matplotlib.pyplot as plt
 import numpy as np
-from shapely.geometry import Point
-from shapely.geometry import Polygon
-from pprint import pprint
-from mpl_toolkits import mplot3d
 
 # Euler 070 - Plotting n/a(n,k) and n/b(n,gap)
 
