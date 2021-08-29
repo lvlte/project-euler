@@ -18,6 +18,8 @@
  * Find the least value of n for which p(n) is divisible by one million.
  */
 
+const { remZero, pentagonal } = require('../../lib/math');
+
 this.solve = function () {
   // Again we have to deal with unrestricted partitions of n.
 
@@ -43,20 +45,53 @@ this.solve = function () {
   //  Π[i∈ℕ](1-x^i) = (1-x)(1-x²)(1-x³) ...
   //  Π[i∈ℕ](1-x^i) = 1 - x - x² + x⁵ + x⁷ - x¹² - x¹⁵ + x²² + x²⁶ - ...
 
-  // .where the coefficient sequence corresponds to the generalized pentagonal
+  // where the coefficient sequence corresponds to the generalized pentagonal
   // numbers sequence, which is given by the formula :
   //  aₖ = k(3k−1)/2, for k in { 1, −1, 2, −2, 3, -3, ... }
 
   // This implies a recurrence for calculating the number of partitions of n :
-  //  p(n) = p(n-1) + p(n-2) - p(n-5) - p(n-7) + p(n-12) + p(n-12) - ...
+  //  p(n) = p(n-1) + p(n-2) - p(n-5) - p(n-7) + p(n-12) + p(n-15) - ...
 
   // So basically our algorithm will use Euler's method which is illustrated at
   // https://upload.wikimedia.org/wikipedia/commons/0/05/Euler_partition_function.svg
 
-  const divBy = 10**6;
+  // It's likely that p(n) will grow over Number.MAX_SAFE_INTEGER, but since we
+  // only have to find the value of n for which p(n) is divisible by one million
+  // and as we deal with a series (addition), we can use modular arithmetic to
+  // compute only the digits of interest and thus avoid having to rely on bigint
+  // knowing that :
+  //  (x+y) % n = ((x%n) + (y%n)) % n
 
-  // seems we can also use Ramanujan's congruences in rder to avoid having to
-  // mod all p(n)'s as p(5k+4) ≡ 0 (mod 5) ....
+  // So instead of handling all the partition numbers, we will only keep track
+  // of the remainders of p(n) modulo 10^6.
 
+  const modulus = 10**6;
 
+  // Generalized pentagonal numbers generator
+  const pentaGen = function * () {
+    let k = 0;
+    while (++k) {
+      yield pentagonal(k);
+      yield pentagonal(-k);
+    }
+  }();
+
+  let n = 0;
+  let pnRem = [1]; // remainders of p(n) % modulus
+  let pentagonals = [pentaGen.next().value];
+
+  do {
+    pnRem[++n] = 0;
+    if (n > pentagonals.length)
+      pentagonals.push(pentaGen.next().value);
+    for (let i=0, m=-1; pentagonals[i] <= n; i++) {
+      const k = pentagonals[i];
+      m = remZero(i, 2) ? -m : m;
+      pnRem[n] += m*pnRem[n-k];
+    }
+    pnRem[n] %= modulus;
+  }
+  while (!remZero(pnRem[n], modulus));
+
+  return n;
 }
