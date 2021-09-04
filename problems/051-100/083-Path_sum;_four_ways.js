@@ -18,10 +18,10 @@
  * 80 by 80 matrix.
  */
 
-const { adjListFromGrid } = require('../../lib/graph');
+const { adjListFromGrid, dijkstra } = require('../../lib/graph');
 const { load } = require('../../lib/utils');
 const data = load('p083_matrix.txt').split(/\r\n|\n/);
-// const matrix = data.filter(l => l).map(r => r.split(',').map(n => +n));
+const matrix = data.filter(l => l).map(r => r.split(',').map(n => +n));
 
 this.solve = function () {
   // This is known as a "Shortest path problem".
@@ -52,19 +52,27 @@ this.solve = function () {
   // We will represent our graph as an adjacency list, such that each vertex v
   // is mapped to a list of all the vertices adjacent to it.
 
-  const matrix = [
-    [131, 673, 234, 103, 18],
-    [201, 96, 342, 965, 150],
-    [630, 803, 746, 422, 111],
-    [537, 699, 497, 121, 956],
-    [805, 732, 524, 37, 331]
-  ];
+  // const matrix = [
+  //   [131, 673, 234, 103, 18],
+  //   [201, 96, 342, 965, 150],
+  //   [630, 803, 746, 422, 111],
+  //   [537, 699, 497, 121, 956],
+  //   [805, 732, 524, 37, 331]
+  // ];
 
+  // Build the adjacency list and a reduced distance matrix (not a square matrix
+  // but one precisely built from the adjacency list).
   const [graph, distMx] = adjListFromGrid(matrix);
 
-  console.log(graph);
-  console.log(graph.length);
+  // Tentative distance (cost of going to vertex v2 through vertex v1, assuming
+  // v1 and v2 are neighbours).
+  const distance = (v1, v2, d) => d + distMx[v1][v2];
 
-  console.log(distMx);
-  console.log(distMx.length);
+  const source = 0;
+  const target = graph.length-1;
+  const initD = matrix[0][0];
+
+  const [dist,] = dijkstra(graph, source, target, distance, initD);
+
+  return dist[target];
 }
