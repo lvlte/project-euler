@@ -110,7 +110,7 @@ this.solve2 = function () {
   //  Given (1-x^p)^-1, we got the pattern `one, followed by (p-1) zeros` which
   //  repeats indefinitely.
 
-  // We are given Π[p∈P](1-x^p)^-1, wich corresponds to the product of the power
+  // We are given Π[p∈P](1-x^p)^-1, which corresponds to the product of the power
   // series of (1-x^p)^-1 for p the prime parts to be used. This means there is
   // a generating function and its corresponding series for each prime parts,
   // and we need to compute the product of these generating functions.

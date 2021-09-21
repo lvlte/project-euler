@@ -27,7 +27,7 @@ this.solve = function () {
   // subset). For example : {{3,9},{1,6,8},{2,4,5,7}}.
 
   // @see http://oeis.org/wiki/Set_partitions
-  // Not to be confused with the partition of an integer n wich corresponds to
+  // Not to be confused with the partition of an integer n which corresponds to
   // a multiset (elements are allowed to appear more than once) of positive
   // integers whose elements sum to n (like with coins in the previous problem).
 
