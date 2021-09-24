@@ -25,7 +25,7 @@
  * can exactly one integer sided right angle triangle be formed ?
  */
 
-const { PPTp } = require('../../lib/triangle');
+const { PTp } = require('../../lib/triangle');
 
 this.solve = function () {
 
@@ -38,24 +38,21 @@ this.solve = function () {
   // This probabaly could be done more efficiently though.
 
   const L = 1_500_000;
-  const ppt = PPTp(L);
+  const triples = PTp(L);
 
   let LValues = {};
   let single = new Set();
 
-  for (let i=0; i<ppt.length; i++) {
-    const [a, b, c] = ppt[i];
+  for (let i=0; i<triples.length; i++) {
+    const [a, b, c] = triples[i];
     const p = a + b + c;
-    let m = 1, l;
-    while ((l = p*m++) <= L) {
-      if (l in LValues) {
-        LValues[l]++;
-        single.delete(l);
-      }
-      else {
-        LValues[l] = 1;
-        single.add(l);
-      }
+    if (p in LValues) {
+      LValues[p]++;
+      single.delete(p);
+    }
+    else {
+      LValues[p] = 1;
+      single.add(p);
     }
   }
 

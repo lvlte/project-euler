@@ -12,34 +12,29 @@
  */
 
 const { sum } = require('../../lib/math');
-const { PPTp } = require('../../lib/triangle');
+const { PTp } = require('../../lib/triangle');
 
 this.solve = function () {
-  // Let's generate primitive pythagorean triples, then from each find the
-  // derivatives for which the perimeter stays below pMax, if any, counting
-  // the number of triples per matching perimeter.
+  // Let's generate primitive pythagorean triples for which the perimeter stays
+  // below pMax.
 
   const pMax = 1000;
-  const ppt = PPTp(pMax);
+  const triples = PTp(pMax);
 
   let perimeters = {};
   let nSolMax = 0;
   let whichP;
 
-  for (let i=0; i<ppt.length; i++) {
-    const p = sum(ppt[i]);
-    let m = 0;
-    let pp;
-    while ((pp=++m*p) <= pMax) {
-      if (pp in perimeters) {
-        perimeters[pp]++;
-        if (perimeters[pp] > nSolMax) {
-          nSolMax = perimeters[pp];
-          whichP = pp;
-        }
+  for (let i=0; i<triples.length; i++) {
+    const p = sum(triples[i]);
+    if (p in perimeters) {
+      perimeters[p]++;
+      if (perimeters[p] > nSolMax) {
+        nSolMax = perimeters[p];
+        whichP = p;
       }
-      else perimeters[pp] = 1;
     }
+    else perimeters[p] = 1;
   }
 
   return whichP;
