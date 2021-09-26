@@ -203,12 +203,15 @@ this.solve = function () {
   let cubA = 0;
 
   // Iterate triples until cubA reaches half the target.
+  let reached = false;
   for (let i=0; i<triples.length; i++) {
     const [a, b, c] = triples[i];
     if (b <= 2*a) {
       cubA += cubAFromT(a, b, c);
-      if (cubA > targetA)
+      if (cubA > targetA) {
+        reached = true;
         break;
+      }
     }
     cubBFromT(a, b, c);
   }
@@ -217,6 +220,11 @@ this.solve = function () {
   // solutions by increasing order of M and find the least value of M such that
   // the number of solutions first exceeds `target` (we take advantage of the
   // natural index ordering of js objects).
+
+  // If `cubA` doesn't reach its target, it means we need more triples so we
+  // would just increase `pMax` until it does.
+  if (!reached)
+    return console.log('Need to increase pMax');
 
   let solutions = 0;
   let M;
