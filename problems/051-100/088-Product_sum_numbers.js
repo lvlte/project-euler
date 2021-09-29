@@ -74,7 +74,7 @@ this.solve = function () {
   //  Then, we have a guaranteed product-sum produced by S = {2, k} :
   //    1^(k-2)*2*k = 1*(k-2)+2+k = 2k
 
-  // So the minimal product-sum for k is such that k ≤ M[k] ≤ 2k.
+  // So the minimal product-sum for k is such that k < M[k] ≤ 2k.
 
   const kMin = 2;
   const kMax = 12_000;
