@@ -17,7 +17,7 @@ this.solve = function () {
   const pow = 1000;
   const n = 2;
 
-  // Consider each digit*10^exp separately, right-to-left ([ones, tens, ...]).
+  // Consider each digit*10^exp separately, right-to-left ([units, tens, ...]).
   let digits = [n];
   let p = 1;
 
@@ -34,7 +34,7 @@ this.solve = function () {
     }
   }
 
-  const number = digits.reverse().join('');
+  // (digits are reversed but we only want the sum so it doesn't matter)
 
-  return sum((''+number).split(''));
+  return sum(digits);
 }
