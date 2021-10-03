@@ -19,7 +19,6 @@
  * formed in the same way?
  */
 
-const { range } = require('../../lib/utils');
 const { sum } = require('../../lib/math');
 
 this.solve = function () {
@@ -30,7 +29,7 @@ this.solve = function () {
   const corners = n => {
     const sq = n*n;
     const offset = n-1;
-    return range(4).map(x => sq-x*offset);
+    return [0,1,2,3].map(x => sq-x*offset);
   }
 
   let n = 1001;
