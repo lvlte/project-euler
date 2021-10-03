@@ -115,6 +115,10 @@ this.solve = function () {
   // are missing from s to match p, then finds the value of k so that p can be
   // assigned to M[k] if smaller than the current value of M[k].
 
+  // Since we don't track the factors themselves, an additional parameter is
+  // required to keep track of their number (number of factors virtually used),
+  // in order to find the value of k.
+
   // Let the minimal product-sum numbers default to Infinity.
   let M = Array(kMax).fill(Infinity);
 
@@ -122,13 +126,13 @@ this.solve = function () {
   //  p: value of the product to expand
   //  s: value of the sum to expand
   //  n: smallest factor to multiply with p (and add to s)
-  //  m: virtual number of factors actually in use (also the function depth).
+  //  m: number of factors virtually in use (also the function depth).
   const findMPS = (p, s, n, m) => {
     const nMax = Math.floor(limit/p);
     for (n, m++; n<=nMax; n++) {
       const ss = s+n;
       const pp = p*n;         // solution candidate is the current product
-      const ones = pp-(ss);   // number of ones needed to adjust sum to product
+      const ones = pp-ss;     // number of ones needed to adjust sum to product
       const k = m+ones;       // making a minimal product-sum candidate for k
       if (pp < M[k])
         M[k] = pp;
@@ -145,7 +149,5 @@ this.solve = function () {
   }
 
   // Dedupe (minimal product-sum numbers must be counted only once in the sum)
-  const set = [...new Set(M.slice(kMin))];
-
-  return sum(set);
+  return sum([...new Set(M.slice(kMin))]);
 }
