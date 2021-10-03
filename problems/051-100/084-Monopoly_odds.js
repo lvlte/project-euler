@@ -160,7 +160,7 @@ this.solve = function () {
   // Let P be our transition matrix, and sp(j) the stationary probability of
   // transiting to state j, S being the state space, we got :
 
-  //    sp(j) = Σ[i∈S]Pᵢⱼ*sp(i) = P₀ⱼ*sp(0) + P₁ⱼ*sp(1) + P₂ⱼ*sp(1) + ...
+  //    sp(j) = Σ[i∈S]Pᵢⱼ*sp(i) = P₀ⱼ*sp(0) + P₁ⱼ*sp(1) + P₂ⱼ*sp(2) + ...
 
   // So we have to define a system of 120+1 equations with 120 unknowns, which
   // we will represent as a matrix of coefficients so that we can then solve it
