@@ -18,8 +18,9 @@ this.solve = function () {
   // const { bigFact } = require('../lib/utils');
   // const number = bigFact(n); huhu
 
-  // Consider each digit*10^exp separately, right-to-left ([ones, tens, ...]).
+  // Consider each digit*10^exp separately, right-to-left ([units, tens, ...]).
   let digits = [1];
+
   for (let x=2; x<=n; x++) {
     let carry = 0;
     for (let exp=0; exp<digits.length; exp++) {
@@ -33,7 +34,7 @@ this.solve = function () {
     }
   }
 
-  const number = digits.reverse().join('');
+  // (digits are reversed but we only want the sum so it doesn't matter)
 
-  return sum((''+number).split(''));
+  return sum(digits);
 }
