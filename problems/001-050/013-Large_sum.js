@@ -29,23 +29,14 @@ this.solve = function () {
   // In other words, we only need to check the sum of the first 10 digits + the
   // next 3 digits (11-8) that would potentially affect the final result.
 
-  const p = numbers.length*10;
-  const nCheck = Math.ceil(Math.log10(p));
-  let checked = 0;
-
   const N = 10;
-  let firstN;
-  let n = 0;
+  const offset = Math.ceil(Math.log10(numbers.length*10));
+  const length = N + offset;
 
-  while (firstN !== n && checked < nCheck) {
-    firstN = n;
-    n = 0;
-    for (let i=0; i<numbers.length; i++) {
-      n += parseInt(numbers[i].substr(0, N+1+checked));
-    }
-    n = parseInt((''+n).substr(0, N));
-    checked++;
+  let n = 0;
+  for (let i=0; i<numbers.length; i++) {
+    n += parseInt(numbers[i].substr(0, length));
   }
 
-  return firstN;
+  return String(n).substr(0, N);
 }
