@@ -1,0 +1,39 @@
+{
+  "name": "project-euler",
+  "version": "1.0.0",
+  "description": "All-in-one toolbox for solving Project-Euler problems (no dependencies), along with solutions.",
+  "main": "solve.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lvlte/project-euler.git"
+  },
+  "keywords": [
+    "project",
+    "euler",
+    "math",
+    "combinatorics",
+    "prime",
+    "number",
+    "problem",
+    "solve",
+    "algorithm",
+    "challenge",
+    "puzzle",
+    "toolbox"
+  ],
+  "author": "Eric Lavault",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lvlte/project-euler/issues"
+  },
+  "homepage": "https://github.com/lvlte/project-euler#readme",
+  "devDependencies": {
+    "eslint": "^8.0.1"
+  }
+}
