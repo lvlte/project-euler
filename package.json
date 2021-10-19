@@ -1,5 +1,5 @@
 {
-  "name": "project-euler",
+  "name": "@lvlte/project-euler",
   "version": "1.0.0",
   "description": "All-in-one toolbox for solving Project-Euler problems (no dependencies), along with solutions.",
   "main": "solve.js",
