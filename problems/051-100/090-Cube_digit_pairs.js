@@ -1,7 +1,7 @@
 /**
  * Problem 90 - Cube digit pairs
  *
- * @see {@link https://projecteuler.net/problem=}
+ * @see {@link https://projecteuler.net/problem=90}
  *
  * Each of the six faces on a cube has a different digit (0 to 9) written on it;
  * the same is done to a second cube. By placing the two cubes side-by-side in
