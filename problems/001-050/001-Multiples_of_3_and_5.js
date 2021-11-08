@@ -10,7 +10,7 @@
 this.solve = function (limit=1000) {
   let sum = 0;
 
-  for (n=3; n<limit; n++) {
+  for (let n=3; n<limit; n++) {
     if (n % 3 === 0 || n % 5 === 0) {
       sum += n;
     }
