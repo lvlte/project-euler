@@ -35,18 +35,19 @@ this.solve = function () {
   // exists exactly one triplet for which a + b + c = 1000", we just need to
   // find for which m,n the product m*(m+n) yields 500, with m > n and n > 0.
 
-  // By pairing the divisors of 500, excluding 1, we have our m,n candidates :
-  // divisors(500) -> [2, 4, 5, 10, 20, 25, 50, 100, 125, 250]
+  // By pairing the divisors of 500, we have our m,n candidates :
+  //  divisors(500) -> [1, 2, 4, 5, 10, 20, 25, 50, 100, 125, 250, 500]
   //  pn = m *  x  = m * (m +  n ) with m+n > m and m > n
-  //  p1 = 2 * 250 = 2 * (2 + 148) -> doesn't match, n is greater than m
-  //  p2 = 4 * 125 = 4 * (4 + 121) -> same here
+  //  p0 = 1 * 500 = 1 * (1 + 499) -> doesn't match, n is greater than m
+  //  p1 = 2 * 250 = 2 * (2 + 148) -> same here
+  //  p2 = 4 * 125 = 4 * (4 + 121) -> ...
   //  ...
 
   // Once we got a matching m,n we can stop and directly compute a,b,c as we
   // know there is only one triple to find.
 
   const p = 1000;
-  const div = divisors(p/2).sort((a, b) => a - b).slice(1);
+  const div = divisors(p/2).sort((a, b) => a - b);
 
   let a,b,c;
 

@@ -23,7 +23,7 @@ const { sum, divisors } = require('../../lib/math');
 this.solve = function () {
   const limit = 10_000;
 
-  const d = (n) => sum(divisors(n));
+  const d = (n) => sum(divisors(n, true));
 
   let s = 0;
   let sumdiv = {}; // { n : d(n) }

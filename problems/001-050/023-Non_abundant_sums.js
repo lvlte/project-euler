@@ -31,7 +31,7 @@ this.solve = function () {
   // Collect abundant numbers.
   let abundant = [];
   for (let n=1; n<=nMax; n++) {
-    sum(divisors(n)) > n && abundant.push(n);
+    sum(divisors(n, true)) > n && abundant.push(n);
   }
 
   // Positive integers which CAN be written as the sum of 2 abundant numbers.
