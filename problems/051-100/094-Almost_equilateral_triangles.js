@@ -25,34 +25,35 @@ this.solve = function () {
   // definition, that is all isosceles Hero triangles for which the base length
   // differs from the legs length by exactly one unit.
 
-  // The perimeter of a Heronian triangle is always an even number, thus every
-  // Heronian triangle has an odd number of sides of even length.
+  // Regarding their perimeter, it is always an even number, thus every Heronian
+  // triangle has an odd number of sides of even length. This means that for
+  // those almost equilateral of the form (x, x, x±1), x is odd.
 
   // All isosceles Heronian triangles are decomposable. They are formed by
   // joining two congruent Pythagorean triangles along either of their common
-  // legs such that the equal sides of the isosceles triangle are the
+  // legs, such that the equal sides of the isosceles triangle are the
   // hypotenuses of the Pythagorean triangles, and the base of the isosceles
   // triangle is twice the other Pythagorean leg.
 
-  // Consequently, every PT is the building block for two isosceles Heronian
-  // triangles since the join can be along either leg. Given a PT (a, b, c) :
-  //  H1 = (a, b, c) (joining on b)
-  //  H2 = (a, b, c) (joining on a)
-
-  // Therefore, since an almost equilateral triangle is of the form (c, c, c±1),
-  // given a pythagorean triple (a, b, c) :
-  //  -> If 2a = c ± 1, then H1 is an almost equilateral triangle.
-  //  -> If 2b = c ± 1, then H2 is an almost equilateral triangle.
-  //  -> c must be odd for the number of sides of even length to be odd.
+  // Consequently, every Pythagorean triple is the building block for two
+  // isosceles Heronian triangles, since the join can be along either leg :
+  //
+  //  Given a pythagorean triple (a, b, c), we can build
+  //   H1 = (c, c, 2a) (joining on b)
+  //   H2 = (c, c, 2b) (joining on a)
+  //
+  //  Therefore, in order to obtain an almost equilateral triangle (c, c, c±1),
+  //  we need our triple (a, b, c) to satisfy 2a = c ± 1 or 2b = c ± 1, which
+  //  implies that the hypotenuse c must be odd.
 
   // This means that all such triangles can be built from primitive pythagorean
   // triangles and that no derivative can match (since c is odd and 2a is even,
   // |2a - c| >= 1, then for any positive integer m, m * |2a - c| >= m, so the
   // 1-unit length difference can only hold when |2a - c| = 1 with m = 1).
 
-  // Given c, the hypotenuse of a pythagorean triangle, a corresponding almost
-  // equilateral triangle has a perimeter p = 3*c ± 1, so we can define cMax,
-  // the maximum hypotenuse length, such that 3*cMax + 1 = pMax.
+  // As an almost equilateral triangle (c, c, c±1) has a perimeter p = 3*c ± 1,
+  // we can define cMax, the maximum hypotenuse length for the pythagoreans,
+  // such that 3*cMax + 1 = pMax.
 
   // However, generating all primitive pythagorean triples with an hypotenuse
   // lower than (10^9-1)/3 (which means a lot) and checking for each one of them
