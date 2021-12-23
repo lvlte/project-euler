@@ -23,9 +23,6 @@
  * exceeding one million.
  */
 
-const { sum, divisors } = require('../../lib/math');
-const { primesHashMap } = require('../../lib/prime');
-
 this.solve = function () {
   // We call the sum of all proper divisors of n the "aliquot sum" of n, and an
   // "aliquot sequence" is a sequence of nonnegative integers in which each term
@@ -42,27 +39,39 @@ this.solve = function () {
   // sequence with no element exceeding one million.
 
   // So let's build the aliquot sequences of n for n <= limit, and find the
-  // the longest cycle (this is brute force somehow, and even if recursion +
-  // memoization is used the following is not very efficient, there must be a
-  // better solution.
+  // the longest cycle.
+
+  // The thing is that computing the proper divisors of n for all integers below
+  // one million takes some time. So we will employ the logic used in the sieve
+  // of Eratosthenes, but instead of sieving primes by iteratively marking as
+  // composite the multiples of each prime, we will directly add up the value
+  // of a given divisor to the aliquot sum of each of its multiple.
 
   const nMax = 1_000_000;
 
+  // Aliquot sums S[n] for 0 < n <= nMax
+  let S = new Array(nMax+1).fill(1);
+  S[0] = undefined;
+  S[1] = 0;
+
+  let d = 1; // divisor of n
+  const dMax = nMax/2;
+  while (++d <= dMax) {
+    for (let n=2*d; n<=nMax; n+=d)
+      S[n] += d;
+  }
+
   // Array of aliquot sequences.
-  let A = new Array(nMax);
+  let A = new Array(nMax+1);
   A[0] = [0];
   A[1] = [1, 0];
-
-  // Aliquot sum of n.
-  const primes = primesHashMap(nMax);
-  const aliquotSum = n => primes[n] && 1 || sum(divisors(n, true));
 
   // Build/memoize the aliquot sequence of n, recursively if next n is greater.
   const aliquotBuild = (n, from=n) => {
     if (A[n] != undefined)
       return A[n];
     A[n] = [n];
-    let next = aliquotSum(n);
+    let next = S[n];
     if (next === n)
       return A[n];    // n is a perfect number
     if (next > from) {
@@ -80,22 +89,14 @@ this.solve = function () {
   // Checks whether or not the given aliquot sequence forms an amicable chain.
   const isAmicable = chain => chain && chain[0] === chain.last();
 
-  let amicable = {};
   let longest = [];
   let n = 1;
 
   while (++n <= nMax) {
-    const sequence = aliquotBuild(n);
-    if (isAmicable(sequence)) {
-      if (sequence.length > 1)
-        sequence.pop() // remove cycling n
-      amicable[n] = sequence;
-      if (sequence.length > longest.length)
-        longest = sequence;
-    }
+    const chain = aliquotBuild(n);
+    if (isAmicable(chain) && chain.length > longest.length)
+      longest = chain;
   }
-
-  // console.log(amicable);
 
   return Math.min(...longest);
 }
