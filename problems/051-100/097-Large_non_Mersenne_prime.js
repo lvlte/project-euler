@@ -39,8 +39,8 @@ this.solve = function () {
   //  In other words, 2^k % 10 = 2^x % 10, with x = (k-1) % 4 + 1.
 
   // More generally, the powers of 2 modulo 10^k follow a cyclic pattern for any
-  // k>0, and the period corresponds to the multiplicative order of 2 modulo 5^k
-  // which is given by Euler's totient function :
+  // k>0, which starts at 2^k, and the period corresponds to the multiplicative
+  // order of 2 modulo 5^k, which is given by Euler's totient function :
   //   φ(5^k) = 4 * 5^(k-1)
 
   // @see https://en.wikipedia.org/wiki/Power_of_two#Table_of_values
