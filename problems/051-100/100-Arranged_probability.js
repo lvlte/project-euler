@@ -115,3 +115,76 @@ this.solve = function () {
   //    y = (pₙ-qₙ)/2
   //
 }
+
+// Alternative method
+this.solve2 = function () {
+
+  // There is an interesting method to find integer solutions to a quadratic
+  // diophantine which is called Veta Jumping.
+  // @see https://en.wikipedia.org/wiki/Vieta_jumping#Geometric_interpretation
+
+  // The idea is that we can produce integer points by alternatively flipping
+  // some roots. By doing this the paths from one point to another draw a double
+  // spiral, meaning we can go outward to find greater roots, or inward to find
+  // smaller roots back to the origin.
+
+  // The first thing to note is that the diophantine equation used in the first
+  // method cannot be used because it's graph is not symmetric with respect to
+  // the line y = x, and it misses a ±kxy part (ie. by flipping roots we would
+  // be stuck in a square instead of jumping out of a spiral).
+
+  // Though the second equation (see Note above) fits the condition :
+  //
+  //  x² - 2xy - y² - x + y = 0
+  //
+  // @see graph https://www.desmos.com/calculator/uwie6si9zy
+
+  // Given an integer point (x,y) on the spiral, we got two other points :
+  // -> one with the same x-value : (x, -2x - y + 1)
+  // -> one with the same y-value : (-x + 2y + 1, y)
+
+  // Since we want only the positive roots, we can apply several flips at once
+  // because only one out of four points in one spiral will have positive values
+  // for both x and y. So let's say start with a positive root point (x,y) :
+  //  -> we need to go vertically to go outward, so we set y = -2x - y + 1
+  //  -> now y is negative, we go horizontally and apply to x :
+  //      x = -x + 2(-2x - y + 1) + 1
+  //      x = -5x - 2y + 3
+  //  -> both x and y are negative, flipping y again, we get :
+  //      y = -2(-5x - 2y + 3) - (-2x - y + 1) + 1
+  //      y = 12x + 5y - 6
+  //  -> finally we flip x again, which gives :
+  //      x = -(-5x - 2y + 3) + 2(12x + 5y - 6) + 1
+  //      x = 29x + 12y - 14
+
+  // Now we can obtain new solutions by applying the transformation recursively
+  //  xₙ₊₁ = 29xₙ + 12yₙ - 14
+  //  yₙ₊₁ = 12xₙ + 5yₙ - 6
+
+  // Nb. We need to do this on both branches of the spiral to get all solutions,
+  // starting with 2 positive roots in respect to each branch, which we got from
+  // the problem description (otherwise we could have started at the origin and
+  // initiate the spiral using the vertical and horizontal transformation to
+  // produce the first positive roots).
+
+  const minNDiscs = 10**12;
+
+  const spiral = [
+    [ [15, 6 ] ],  // branch 0
+    [ [85, 35] ]   // branch 1
+  ];
+
+  const vietaJump = ([x, y]) => [29*x + 12*y - 14, 12*x + 5*y - 6];
+
+  let x, y;
+  let i = 0;
+
+  do {
+    const ii = i++%2;
+    [x, y] = vietaJump(spiral[ii].last());
+    spiral[ii].push([x, y]);
+  }
+  while (x + y <= minNDiscs);
+
+  return x;
+}
