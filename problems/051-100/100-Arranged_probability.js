@@ -46,8 +46,9 @@ this.solve = function () {
   // The standard form of the equation of a hyperbola with center (h, k) and
   // transverse axis parallel to the x-axis is (x - h)²/a² - (y - k)²/b² = c,
   // and the equations of the asymptotes are y = ±b/a * (x - h) + k.
-
-  // https://courses.lumenlearning.com/waymakercollegealgebra/chapter/equations-of-hyperbolas/
+  // @see
+  //  https://en.wikipedia.org/wiki/Hyperbola
+  //  https://courses.lumenlearning.com/waymakercollegealgebra/chapter/equations-of-hyperbolas/
 
   // Let's transform the equation in a standard form, we obtain :
   //  ⁢x² - ⁢x - y²/2 + y/2 = 0
@@ -97,4 +98,20 @@ this.solve = function () {
     if (y > minNDiscs)
       return x;
   }
+
+  // Note: we could also worked out the diophantine relating blue and red discs
+  // (instead of blue and total number). In this case we would substitute b+r to
+  // n in the first equation and obtain another quadratic diophantine :
+  //
+  //  x² - 2xy - y² - x + y = 0
+  //
+  // Working out center (h=1/2, k=0), and the asymptote with positive slope :
+  //
+  //  y = (√2 - 1)(x - 1/2)
+  //
+  // The integer solutions given the convergeant of √2, pₙ/qₙ, would be :
+  //
+  //    x = (qₙ+1)/2
+  //    y = (pₙ-qₙ)/2
+  //
 }
