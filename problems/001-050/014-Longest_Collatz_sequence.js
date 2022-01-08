@@ -22,22 +22,30 @@
  * NOTE: Once the chain starts the terms are allowed to go above one million.
  */
 
-const { collatz } = require('../../lib/sequences.js');
-
 this.solve = function () {
   const limit = 1_000_000;
+
+  // C[n] contains the length of the Collatz sequences with starting number n.
+  let C = {1: 1};
+
+  // Helper, uses recursion to leverage the length cache and compute the length
+  // of C[n] without storing the terms themselves.
+  const collatzLen = n => {
+    if (!C[n])
+      C[n] = 1 + collatzLen(n % 2 ? 3*n+1 : n/2);
+    return C[n];
+  };
+
+  let maxLen = 0;
+  let bestN = 1;
   let n = 1;
 
-  // longest chain
-  longest = [];
-
   while (++n < limit) {
-    const c = collatz(n);
-    if (c.length > longest.length)
-      longest = c;
+    if (collatzLen(n) > maxLen) {
+      maxLen = C[n];
+      bestN = n;
+    }
   }
 
-  // (first term of the sequence is the starting number)
-  return longest[0];
+  return bestN;
 }
-
