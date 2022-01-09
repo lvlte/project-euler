@@ -21,11 +21,61 @@
  * Find the sum of all 0 to 9 pandigital numbers with this property.
  */
 
-const { range } = require('../../lib/utils');
+const { range, diff } = require('../../lib/utils');
 const { permute } = require('../../lib/combinatorics');
-const { remZero } = require('../../lib/math');
+const { remZero, sum } = require('../../lib/math');
 
 this.solve = function () {
+  // We can work with digits triplets : the key is to create 3-digit multiples
+  // for each prime, starting with the d₈d₉d₁₀ numbers (because there are less
+  // multiples of 17 than multiples of 2 which means fewer candidates to begin
+  // with).
+
+  // Then for each one of them, we take the two first digits and try to create
+  // 3-digits multiples of 13 that ends with these digits, and if any, repeat
+  // the process with the next group, and so on until we reach the multiples of
+  // two. At each stage, we expand the candidate numbers which are represented
+  // as strings. After that, we will just need to prepend their first digit (d₁)
+  // to the numbers obtained from the last stage.
+
+  const set = range(10).map(String);
+  const primes = [2, 3, 5, 7, 11, 13, 17];
+
+  // A[s] contains the pandigital number candidates strings at some stage s,
+  // initially the multiples of 17, d₈d₉d₁₀ for s=0, then the 4-digits numbers
+  // d₇d₈d₉d₁₀ for s=1, d₆d₇d₈d₉d₁₀ for s=2, etc.
+  let p = primes.pop();
+  const A = [
+    range(p, 10**3, p).map(n => (''+n).padStart(3, 0)).filter(digits => {
+      return digits.length == new Set(digits).size;
+    })
+  ];
+
+  while (primes.length) {
+    const candidates = A.last();
+    const next = [];
+    p = primes.pop();
+    for (let i=0; i<candidates.length; i++) {
+      const [d1, d2] = candidates[i];
+      diff(set, candidates[i]).forEach(d => {
+        const n = Number(d + d1 + d2);
+        if (remZero(n, p))
+          next.push([d, ...candidates[i]].join(''))
+      });
+    }
+    A.push(next);
+  }
+
+  const pandigitals = A.last().map(digits => {
+    const d = diff(set, digits).pop();
+    return Number([d, ...digits].join(''));
+  });
+
+  return sum(pandigitals);
+}
+
+// Alternative method (brute force)
+this.solve2 = function () {
   const set = range(10);
   const primes = [2, 3, 5, 7, 11, 13, 17];
 
