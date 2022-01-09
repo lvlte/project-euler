@@ -16,30 +16,29 @@
  * NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
  */
 
-const { iterPrimes, isPrime } = require('../../lib/prime');
-const { digits } = require('../../lib/utils');
+const { iterPrimes } = require('../../lib/prime');
 
 this.solve = function () {
   const goal = 11;
 
-  // Helpers, take an array of digits
-  const truncateLeft = dig => dig.slice(1);
-  const truncateRight = dig => dig.slice(0, dig.length-1);
+  // Helpers, expects an array or string of digits
+  const truncateLeft = digits => digits.slice(1);
+  const truncateRight = digits => digits.slice(0, digits.length-1);
 
   // Keeping track of the primes we meet
-  let primesHT = {};
+  const primesHT = {};
 
-  // Whether or not n is a truncable prime
+  // Whether or not the given prime number is a "truncatable prime".
   const isTruncatable = n => {
     if (n < 10)
       return false;
-    let l = digits(n, false); // left
-    let r = l;                // right
+    let l = String(n); // left to right string
+    let r = l;         // right to left string
     while (l.length > 1) {
       l = truncateLeft(l);
-      if (l.join('') in primesHT) {
+      if (l in primesHT) {
         r = truncateRight(r);
-        if (r.join('') in primesHT)
+        if (r in primesHT)
           continue;
       }
       return false
