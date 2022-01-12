@@ -16,10 +16,10 @@
  *
  * What is the value of D ?
  */
-this.solve = function () {
-  // Pentagonal numbers function
-  const P = n => n*(3*n-1)/2;
 
+const { pentaRev, pentagonal } = require('../../lib/math');
+
+this.solve = function () {
   let pentaHT = {};
   let pentagonals = {};
 
@@ -28,12 +28,13 @@ this.solve = function () {
   const pairIsPenta = (Pj,Pk) => (Pj+Pk) in pentaHT && (Pk-Pj) in pentaHT;
 
   // First we generate some pentagonal numbers. The limit is set arbitrarily so
-  // that we can get some pairs in a reasonable time (cheating a bit).
-  const maxPn = 10**8; // p(n) = n(3n−1)/2 ⟹ 3n² − n − 2p(n) = 0
-  const limit = Math.ceil((1+Math.sqrt(1+24*maxPn))/6);
+  // that we can get some pairs in a reasonable time (cheating a bit, we should
+  // prove no better solution can be found with greater pairs).
+  const maxPn = 10**7;
+  const limit = Math.ceil(pentaRev(maxPn));
 
   for (let n=1; n<limit; n++) {
-    const Pn = P(n);
+    const Pn = pentagonal(n);
     pentaHT[Pn] = Pn;
     pentagonals[n] = Pn;
   }
