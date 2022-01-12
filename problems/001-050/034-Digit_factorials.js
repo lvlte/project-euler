@@ -12,6 +12,7 @@
  */
 
 const { sum, mfact } = require('../../lib/math');
+const { digits } = require('../../lib/utils');
 
 this.solve = function () {
   // Such curious numbers are called "factorions".
@@ -43,10 +44,10 @@ this.solve = function () {
   let n = 10;
 
   while (++n <= limit) {
-    const digits = (''+n).split('').map(s => +s);
+    const d = digits(n);
     let factDigSum = 0;
-    for (let i=0; i<digits.length; i++) {
-      factDigSum += mfact(digits[i]);
+    for (let i=0; i<d.length; i++) {
+      factDigSum += mfact(d[i]);
       if (factDigSum > n)
         break;
     }
