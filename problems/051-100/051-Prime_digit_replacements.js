@@ -9,7 +9,9 @@
  * By replacing the 3rd and 4th digits of 56**3 with the same digit, this
  * 5-digit number is the first example having seven primes among the ten
  * generated numbers, yielding the family:
+ *
  *      56003, 56113, 56333, 56443, 56663, 56773, and 56993.
+ *
  * Consequently 56003, being the first member of this family, is the smallest
  * prime with this property.
  *

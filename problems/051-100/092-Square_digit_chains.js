@@ -47,9 +47,7 @@ this.solve = function () {
   let count = 0;
   let n = 1;
   while (++n < limit) {
-    let end = chain[n];
-    if (end === undefined)
-      end = expand(chain, n);
+    const end = chain[n] || expand(chain, n);
     if (end === 89)
       count++;
   }

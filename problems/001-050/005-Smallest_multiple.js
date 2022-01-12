@@ -16,7 +16,7 @@ this.solve = function () {
 
   do {
     n += factor;
-    for (i=2; i<=20; i++) {
+    for (let i=2; i<=20; i++) {
       if (!(evenlyDivisible = n % i === 0))
         break;
     }

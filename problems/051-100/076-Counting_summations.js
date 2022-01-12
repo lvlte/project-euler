@@ -16,7 +16,7 @@
  * positive integers ?
  */
 
-const { intPartition } = require('../../lib/combinatorics')
+const { intPartition } = require('../../lib/combinatorics');
 
 this.solve = function () {
   const n = 100;
@@ -36,7 +36,7 @@ this.solve = function () {
 
   // The partition function p(n) represents the number of possible partitions
   // of a non-negative integer n :
-  //  P(n) = 1/n*Σ[k=0,n-1]σ₁(n-k)*P(k)
+  //  P(n) = (1/n) * Σ[k=0,n-1] (σ₁(n-k) * P(k))
   //  where σ₁(n) or sigma1(n) is the divisor function.
 
   return intPartition(n) - 1;
