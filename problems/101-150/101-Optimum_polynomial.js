@@ -105,7 +105,7 @@ this.solve = function () {
     // The 1st potential incorrect term is OP(k, k+1);
     let n = k + 1;
     let nthTerm = OP(k, n);
-    while (nthTerm === series[n-1])
+    while (nthTerm === U(n))
       nthTerm = OP(k, ++n);
     sumOfFITs += nthTerm;
   }
