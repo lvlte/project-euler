@@ -29,7 +29,7 @@
 
 const Sudoku = require('../../lib/sudoku');
 const { load, digits } = require('../../lib/utils');
-const data = load('p096_sudoku.txt');
+const data = load('p096_sudoku.txt', false);
 
 this.solve = function () {
   // Parsing data

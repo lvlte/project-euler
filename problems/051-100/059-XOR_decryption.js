@@ -16,7 +16,7 @@ const { nkCombinations, permute } = require('../../lib/combinatorics');
 const { sum } = require('../../lib/math');
 const { load, range } = require('../../lib/utils');
 
-const message = load('p059_cipher.txt').split(',').map(code => +code);
+const message = load('p059_cipher.txt').map(code => +code);
 
 this.solve = function () {
   // Since the key is only made up of three lower case letters, we can decrypt

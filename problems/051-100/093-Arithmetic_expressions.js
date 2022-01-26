@@ -116,5 +116,5 @@ this.solve = function () {
       best = { set, maxConsecutive };
   });
 
-  return best.set.join('');
+  return +best.set.join('');
 }

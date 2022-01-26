@@ -72,5 +72,5 @@ this.solve = function () {
     }
   }
 
-  return match.join('');
+  return +match.join('');
 }

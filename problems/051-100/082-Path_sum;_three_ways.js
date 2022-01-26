@@ -20,8 +20,8 @@
  */
 
 const { load } = require('../../lib/utils');
-const data = load('p082_matrix.txt').split(/\r\n|\n/);
-const matrix = data.filter(l => l).map(r => r.split(',').map(n => +n));
+const data = load('p082_matrix.txt');
+const matrix = data.map(r => r.split(',').map(n => +n));
 
 this.solve = function () {
 /**

@@ -8,7 +8,7 @@
  */
 
 const { load } = require('../../lib/utils');
-const numbers = load('p013.txt').split(/\r\n|\n/).filter(l => l);
+const numbers = load('p013.txt');
 
 this.solve = function () {
   // Considering extreme case where all 100 numbers ends with 9 after the 10th
@@ -38,5 +38,5 @@ this.solve = function () {
     n += parseInt(numbers[i].substr(0, length));
   }
 
-  return String(n).substr(0, N);
+  return +String(n).substr(0, N);
 }

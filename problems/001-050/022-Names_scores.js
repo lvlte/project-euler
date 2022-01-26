@@ -17,7 +17,7 @@
 
 const { load } = require('../../lib/utils');
 const { sum } = require('../../lib/math');
-const names = load('p022_names.txt').replace(/"/g, '').split(',');
+const names = load('p022_names.txt', false).replace(/"/g, '').split(',');
 
 this.solve = function () {
   const offset = 'A'.charCodeAt(0) - 1;

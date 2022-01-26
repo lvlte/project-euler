@@ -20,7 +20,7 @@
 
 const { sum } = require('../../lib/math');
 const { load } = require('../../lib/utils');
-const words = load('p042_words.txt').replace(/"/g, '').split(',');
+const words = load('p042_words.txt', false).replace(/"/g, '').split(',');
 
 this.solve = function () {
 

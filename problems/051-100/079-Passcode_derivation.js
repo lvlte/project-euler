@@ -16,7 +16,7 @@
  */
 
 const { load, digits, range } = require('../../lib/utils');
-let keys = load('p079_keylog.txt').split(/\r\n|\n/).filter(l => l);
+let keys = load('p079_keylog.txt');
 
 this.solve = function () {
   // The file contains digits only, with each key having different digits, so
@@ -51,5 +51,5 @@ this.solve = function () {
       passcode[indexes[digit]] = digit;
   }
 
-  return passcode.join('');
+  return +passcode.join('');
 }

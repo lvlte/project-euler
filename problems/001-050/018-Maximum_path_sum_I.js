@@ -40,7 +40,7 @@
 
 const { load } = require('../../lib/utils');
 
-const data = load('p018.txt').split(/\r\n|\n/).filter(l => l);
+const data = load('p018.txt');
 const grid = data.map(r => r.split(' ').map(n => +n));
 
 this.solve = function () {

@@ -18,7 +18,7 @@
  */
 
 const { load } = require('../../lib/utils');
-const baseExp = load('p099_base_exp.txt').split(/\r?\n/).map(l => l.split(','));
+const baseExp = load('p099_base_exp.txt');
 
 this.solve = function () {
   // We will use the logarithm "power rule" so that we can compare reasonable

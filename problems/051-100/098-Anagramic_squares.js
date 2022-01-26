@@ -21,7 +21,7 @@
 
 const { nkCombinations } = require('../../lib/combinatorics');
 const { load } = require('../../lib/utils');
-const words = load('p098_words.txt').slice(1, -1).split('","');
+const words = load('p098_words.txt', false).replace(/"/g, '').split(',');
 
 this.solve = function () {
   // In order to create anagram word pairs, we will first group words by length.

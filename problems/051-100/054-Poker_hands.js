@@ -16,7 +16,7 @@
  */
 
 const { load } = require('../../lib/utils');
-const gameHands = load('p054_poker.txt').split(/\r\n|\n/).filter(l => l);
+const gameHands = load('p054_poker.txt');
 
 // Suits:
 //    - S : ♠ Spades

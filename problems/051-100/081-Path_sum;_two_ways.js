@@ -19,8 +19,8 @@
  */
 
 const { load } = require('../../lib/utils');
-const data = load('p081_matrix.txt').split(/\r\n|\n/);
-const matrix = data.filter(l => l).map(r => r.split(',').map(n => +n));
+const data = load('p081_matrix.txt');
+const matrix = data.map(r => r.split(',').map(n => +n));
 
 this.solve = function () {
   // We already had to deal with "two ways" path sums in problem 18 and 67.

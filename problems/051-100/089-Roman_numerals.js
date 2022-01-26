@@ -35,7 +35,7 @@
  */
 
 const { load } = require('../../lib/utils');
-const romanNumerals = load('p089_roman.txt').split(/\r\n|\n/).filter(l => !!l);
+const romanNumerals = load('p089_roman.txt');
 
 this.solve = function () {
   // In order for a number written in Roman numerals to be considered valid,
