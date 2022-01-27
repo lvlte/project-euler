@@ -100,8 +100,8 @@ this.solve2 = function () {
     // Convert code from mixed/factorial base to base 10
     const code = lehmerCode(p[i]);
     let index = 0;
-    for (let i=0; i<code.length; i++) {
-      index += code[i]*mfact(code.length - i - 1);
+    for (let j=0; j<code.length; j++) {
+      index += code[j]*mfact(code.length - j - 1);
     }
     orderedP[index] = p[i];
   }
