@@ -146,18 +146,23 @@ this.solve2 = function () {
   // Since we want only the positive roots, we can apply several flips at once
   // because only one out of four points in one spiral will have positive values
   // for both x and y. So let's say start with a positive root point (x,y) :
-  //  -> we need to go vertically to go outward, so we set y = -2x - y + 1
-  //  -> now y is negative, we go horizontally and apply to x :
-  //      x = -x + 2(-2x - y + 1) + 1
-  //      x = -5x - 2y + 3
-  //  -> both x and y are negative, flipping y again, we get :
-  //      y = -2(-5x - 2y + 3) - (-2x - y + 1) + 1
-  //      y = 12x + 5y - 6
-  //  -> finally we flip x again, which gives :
-  //      x = -(-5x - 2y + 3) + 2(12x + 5y - 6) + 1
-  //      x = 29x + 12y - 14
+  //  -> we need to go vertically to go outward, so we define :
+  //      y′ = -2x - y + 1
+  //  -> now y′ is negative, we go horizontally by flipping x :
+  //      x′ = -x + 2y′ + 1
+  //      x′ = -x + 2(-2x - y + 1) + 1
+  //      x′ = -5x - 2y + 3
+  //  -> both x′ and y′ are negative, now flipping y′ we get :
+  //      y″ = -2x′ - y′ + 1
+  //      y″ = -2(-5x - 2y + 3) - (-2x - y + 1) + 1
+  //      y″ = 12x + 5y - 6
+  //  -> and finally we flip x′, which gives :
+  //      x″ = -x′ + 2y″ + 1
+  //      x″ = -(-5x - 2y + 3) + 2(12x + 5y - 6) + 1
+  //      x″ = 29x + 12y - 14
 
-  // Now we can obtain new solutions by applying the transformation recursively
+  // So we can obtain new solutions by applying the following transformations
+  // recursively :
   //  xₙ₊₁ = 29xₙ + 12yₙ - 14
   //  yₙ₊₁ = 12xₙ + 5yₙ - 6
 
@@ -180,9 +185,9 @@ this.solve2 = function () {
   let i = 0;
 
   do {
-    const ii = i++%2;
-    [x, y] = vietaJump(spiral[ii].last());
-    spiral[ii].push([x, y]);
+    const branch = i++ % 2;
+    [x, y] = vietaJump(spiral[branch].last());
+    spiral[branch].push([x, y]);
   }
   while (x + y <= minNDiscs);
 

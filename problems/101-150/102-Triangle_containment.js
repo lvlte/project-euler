@@ -29,10 +29,10 @@ const triangles = load('p102_triangles.txt').map(l => l.split(',').map(Number));
 this.solve = function () {
   // In order to determine if a point P is contained within a triangle ABC, we
   // can check the areas of the 3 triangles formed by joining A, B, C and P :
-  // -> If P is inside ABC, then their sum must be equal to the area of ABC, the
-  //    sum will be greater otherwise.
+  // -> If P is inside ABC, then their sum must be equal to the area of ABC.
+  // Otherwise the sum will be greater.
 
-  // This is easy to see by just by drawing ABC and arbitrary points inside and
+  // This is easy to see on paper by drawing ABC and arbitrary points inside and
   // outside the triangle : when P is inside, ABP, BCP, and CAP form 3 disjoints
   // subsets of ABC, whereas when P is outside, the three triangles overlap each
   // other and their union forms a shape with an area that is greater than that
@@ -57,9 +57,10 @@ this.solve = function () {
   // -> The point P is within the triangle (A, B, C) iff 0 ≤ u,v,w ≤ 1.
 
   // So we just need to compute these areal coordinates and check if the convex
-  // combination holds. We don't care about the sign of the ratios here as all
-  // the involved vertices are laid out on the cartesian plane. So given A(T),
-  // the area of a triangle T, we define u,v,w as follows :
+  // combination equation holds. We don't care about the sign of the ratios here
+  // as the involved vertices are laid out on the cartesian plane (ie. not in an
+  // Euclidean space) and the orientation of the triangles does not matter. So
+  // given A(T), the area of a triangle T, we define u, v, and w as follows :
   //
   //  u = A(CAP) / A(ABC)
   //  v = A(ABP) / A(ABC)
@@ -81,7 +82,7 @@ this.solve = function () {
       return false;
 
     const _w = 1 - u - v;
-    if (_w < 0 || _w > 1)
+    if (_w < 0)
       return false;
 
     const w = area(B, C, P) / aref;

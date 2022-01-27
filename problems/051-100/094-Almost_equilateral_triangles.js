@@ -107,7 +107,8 @@ this.solve = function () {
   // values of a and b swapped, we can use only one transition and swap a and b
   // between each call. This way, we only have to consider the case |2a - c| = 1
   // and the corresponding triangle (c, c, 2a) with perimeter p = 2(c+a) because
-  // our variable `a` will represent alternatively a and b.
+  // our variable `a` (as well as `b`) will represent alternatively the value of
+  // a and b.
 
   const pMax = 1_000_000_000;   // maximum perimeter
   const cMax = (pMax - 1) / 3;  // maximum hypotenuse length

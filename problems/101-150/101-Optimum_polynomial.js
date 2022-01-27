@@ -79,10 +79,12 @@ this.solve = function () {
         // (demonstrates the default case with specific values for vizualizing)
         // We need to produce 3 linear equations that express the relationships
         // between the terms themselves and the coefficients a, b, and c so that
-        // we can retrieve their values using row reduction.
+        // we can retrieve their values using row reduction. In other words, we
+        // want to find how many of a, b and c are required to get the xth term
+        // equal to y.
         const M = terms.map((y, i) => {
           const x = i + 1;
-          return [x**2, x, 1, y]; // a*x² + b*x + c*1 = y
+          return [x**2, x, 1, y];
         });
         const [a, b, c] = rowReduct(M).map(Math.round);
         return a*n**2 + b*n + c;
