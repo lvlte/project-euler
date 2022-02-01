@@ -31,12 +31,15 @@
 const { fibonnaci } = require('../../lib/sequences');
 
 this.solve = function () {
-  const nDigits = 1000;
+  const nDigits = 1000n;
+  const nDigNum = 10n**(nDigits-1n);
+
   let index = 0;
-  for (const fib of fibonnaci(1n, 1n)) {
-    index++;
-    if ((''+fib).length >= nDigits)
+  for (const fib of fibonnaci()) {
+    if (fib >= nDigNum)
       break;
+    index++;
   }
+
   return index;
 }
