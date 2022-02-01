@@ -48,6 +48,9 @@ this.solve = function () {
   // each set S we check that every partition of S made of 2 non-empty disjoint
   // subsets statisfies the two rules.
 
+  // In order to break the search as soon as possible, we sort the combinations
+  // in ascending order of the sum of their elements.
+
   // The problem with this method is that it would need a proof that the optimum
   // set can always be obtained from the base (near optimum) set or one of the
   // "deviated" sets...
@@ -64,7 +67,7 @@ this.solve = function () {
 
   // Set of numbers to be used, and the corresponding k-combinations candidates.
   const numbers = new Set(B.map(bn => range(bn-1, bn+2)).flat());
-  const sets = nkCombinations(numbers, B.length);
+  const sets = nkCombinations(numbers, B.length).sort((a, b) => sum(a) - sum(b));
 
   // Checks whether or not the given partition statisfies the two rules.
   function isValid([A, B]) {
@@ -79,23 +82,22 @@ this.solve = function () {
     return true;
   }
 
-  // Keep track of the optimum special sum set
-  let OS = {
+  // Optimum special sum set
+  const OS = {
     set: [],
     sum: Infinity
   };
 
-  // Check the partitions of each set, and keep only the optimum set.
+  // Check the partition of each combinations until we find a special sum set.
+  // Since we already sorted them, we know that the first found is the optimum.
   for (let i=0; i<sets.length; i++) {
     const set = [...sets[i]];
     const P = setPartitions(set, 2);
     const cache = {};
     if (P.every(isValid, { cache })) {
-      const sP = sum(set);
-      if (sP < OS.sum) {
-        OS.sum = sP;
-        OS.set = set;
-      }
+      OS.sum = sum(set);
+      OS.set = set;
+      break;
     }
   }
 
