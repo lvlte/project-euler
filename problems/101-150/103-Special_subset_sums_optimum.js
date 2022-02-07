@@ -34,7 +34,7 @@
  * NOTE: This problem is related to Problem 105 and Problem 106.
  */
 
-const { setPartitions, nkCombinations } = require('../../lib/combinatorics');
+const { nkCombinations, setPartitions } = require('../../lib/combinatorics');
 const { sum } = require('../../lib/math');
 const { range } = require('../../lib/utils');
 
@@ -44,16 +44,29 @@ this.solve = function () {
   // allow some sort of deviation from the base set, which may not be optimum,
   // as for the example with n=6).
 
-  // Then we create combinations of n elements from these candidates, and for
-  // each set S we check that every partition of S made of 2 non-empty disjoint
-  // subsets statisfies the two rules.
+  // Then we create combinations of n elements from these candidates to obtain
+  // set candidates, and for each set, we check if it is a special sum set.
 
-  // In order to break the search as soon as possible, we sort the combinations
-  // in ascending order of the sum of their elements.
+  // We will sort the sets candidates in ascending order of the sum of their
+  // elements beforehand so that we can then break the search as soon as a SSS
+  // is found.
 
-  // The problem with this method is that it would need a proof that the optimum
-  // set can always be obtained from the base (near optimum) set or one of the
-  // "deviated" sets...
+  // Note: My first approach was wrong, and I knew it somehow because I had to
+  // check all subsets sums together to get the correct solution, but it's only
+  // when I got into problems 105 and 106 that I realized "any two non-empty
+  // disjoint subsets" of A doesn't mean "any partition of A into 2 parts", we
+  // must take into account the 2-blocks partitions of every subsets of A of
+  // size k in [2,|A|]. This amount to generate all the combinations (subsets)
+  // of A, and check every disjoint subsets pair.
+
+  // Now, to check if a given set S is a special sum set, we first generate the
+  // k-combinations from S elements for k in [2, n]. Then for each combination,
+  // we check that every partition of its elements into two disjoint subsets
+  // satisfies the rules.
+
+  // The problem with the "deviation" method is that it would need a proof that
+  // the optimum set can always be obtained from the base (near optimum) set, or
+  // one of its derivatives.
 
   // Optimum set for n-1
   const A = [ 11, 18, 19, 20, 22, 25 ];
@@ -64,21 +77,42 @@ this.solve = function () {
 
   // Near optimum set for n
   const B = [b, ...A.map(an => an + b)];
+  const n = B.length;
 
   // Set of numbers to be used, and the corresponding k-combinations candidates.
-  const numbers = new Set(B.map(bn => range(bn-1, bn+2)).flat());
-  const sets = nkCombinations(numbers, B.length).sort((a, b) => sum(a) - sum(b));
+  const numbers = [...new Set(B.map(bn => range(bn-1, bn+2)).flat())];
+  const sets = nkCombinations(numbers, n).sort((a, b) => sum(a) - sum(b));
+
+  // Creates k-combinations of indexes from 0 to n-1, and for k in range [2, n],
+  // we will use it to generate the subsets of length K for any set S of length
+  // n by mapping each combination of indexes to the corresponding subset of
+  // elements of S, ie. [ S[i] for i in C ].
+  const I = nkCombinations(range(n), range(2, n+1));
+
+  // Generates subsets of S from the combinations of indexes (C).
+  function* subsets (S) {
+    for (const indexes of I) {
+      yield indexes.map(i => S[i]);
+    }
+  }
 
   // Checks whether or not the given partition statisfies the two rules.
   function isValid([A, B]) {
     const sA = sum(A);
     const sB = sum(B);
-    if (sA === sB || this.cache[sA] || this.cache[sB])
+    if (sA == sB)
       return false;
-    if ((A.length > B.length && sB > sA) || (A.length < B.length && sA > sB))
+    if (A.length > B.length && sA <= sB || A.length < B.length && sA >= sB)
       return false;
-    this.cache[sA] = sA;
-    this.cache[sB] = sB;
+    return true;
+  }
+
+  // Checks whether or not the given set S is a special sum set.
+  const isSpecial = S => {
+    for (const subset of subsets(S)) {
+      if (!setPartitions(subset, 2).every(isValid))
+        return false;
+    }
     return true;
   }
 
@@ -88,15 +122,12 @@ this.solve = function () {
     sum: Infinity
   };
 
-  // Check the partition of each combinations until we find a special sum set.
-  // Since we already sorted them, we know that the first found is the optimum.
-  for (let i=0; i<sets.length; i++) {
-    const set = [...sets[i]];
-    const P = setPartitions(set, 2);
-    const cache = {};
-    if (P.every(isValid, { cache })) {
-      OS.sum = sum(set);
-      OS.set = set;
+  // Check each set until we find a special sum set. We know that the first one
+  // that is found is the optimum set because sets are sorted by sum.
+  for (const S of sets) {
+    if (isSpecial(S)) {
+      OS.sum = sum(S);
+      OS.set = S;
       break;
     }
   }
