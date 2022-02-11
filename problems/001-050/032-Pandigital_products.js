@@ -38,12 +38,7 @@ this.solve = function () {
   // partition number).
   // @see https://mathworld.wolfram.com/StirlingNumberoftheSecondKind.html
 
-  const n = 9;
-  const k = 3;
-  // console.log('stirling2(n, k)', stirling2(n, k)); // -> 3025
-
-  const set = range(1, n+1);
-  const partitions = setPartitions(set, k);
+  // -> For n=9, k=3, stirling2(n, k) = 3025.
 
   // Then, for each partition, we need to find all the permutations of its
   // subsets producing an identity that can be arranged as a product. For
@@ -72,6 +67,10 @@ this.solve = function () {
   //    and exclude the given partition if m * n > pMax, because in that case
   //    any other permutation whatsoever would be invalid, with m * n > p.
 
+  const n = 9;
+  const k = 3;
+  const set = range(1, n+1);
+
   // Helper that checks if the given partition subsets are valid.
   const checkSubsets = (a, b, c) => {
     if (!(a.length === 4 || b.length === 4 || c.length === 4))
@@ -91,8 +90,8 @@ this.solve = function () {
 
   // For each partition, skip if invalid, or permute the subsets elements and
   // recombine them into identities we can check, keeping only valid products.
-  for (let i=0; i<partitions.length; i++) {
-    const [s1, s2, s3] = partitions[i];
+  for (const [s1, s2, s3] of setPartitions(set, k)) {
+    // const [s1, s2, s3] = partitions[i];
     if (!checkSubsets(s1, s2, s3))
       continue;
     const [S1, S2, S3] = [permute(s1), permute(s2), permute(s3)];

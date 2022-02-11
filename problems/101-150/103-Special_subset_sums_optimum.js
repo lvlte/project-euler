@@ -110,8 +110,9 @@ this.solve = function () {
   // Checks whether or not the given set S is a special sum set.
   const isSpecial = S => {
     for (const subset of subsets(S)) {
-      if (!setPartitions(subset, 2).every(isValid))
-        return false;
+      for (const P of setPartitions(subset, 2))
+        if (!isValid(P))
+          return false;
     }
     return true;
   }
