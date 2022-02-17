@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://projecteuler.net/about">
-    <img src="https://projecteuler.net/themes/20210213/logo_default.png" alt="ProjectEuler" >
+    <img src="https://projecteuler.net/themes/logo_default.png" alt="ProjectEuler" >
   </a>
 </p>
 
