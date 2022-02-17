@@ -23,6 +23,9 @@
  * be tested for equality?
  */
 
+const { nChooseK, catalan } = require('../../lib/combinatorics');
+const { range } = require('../../lib/utils');
+
 this.solve = function () {
 
   // Let consider a set S of n strictly increasing elements. Since rule 2 is
@@ -40,23 +43,114 @@ this.solve = function () {
   //  For n=6, 2 <= m <= 3,
   //    m=2 : nCk(6,4)=15 combinations of nCk(4,2)/2=3 pairs, 15*3 = 45
   //    m=3 : nCk(6,6)=1  combinations of nCk(6,2)/2=3 pairs, 1*10 = 10
-  //    We would have to check 55 subset pairs.
+  //    We would have to check at least 55 subset pairs.
   //
   //  ... and so on.
 
   // Now the question is, as it is stated that for n=4 only 1 of the pairs need
   // to be tested, how do we get from 3 to 1 ?
-
-  // n=4 :
   //
-  //  S = { s1, s2, s3, s4 }
-  //  A = { a1, a2 }, with a1=s1 and a2=s2
-  //  B = { b1, b2 }, with b1=s3 and b2=s4
+  // Let S = { s1, s2, s3, s4 }, with s1 < s2 < s3 < s4.
+  // Let [ A = {a1, a2}, B = {b1, b2} ] a subset pair made from S, with a1 < a2,
+  // and b1 < b2.
+  //
+  // Writing down the 3 subset pairs, we can easily observe which one of the 3
+  // does require an equality check :
+  //
+  //     A   |    B   |       S(A) ≠ S(B)       |
+  //  s1, s2 | s3, s4 |    trivial (ai < bj)    |
+  //  s1, s3 | s2, s4 |    trivial (ai < bi)    |
+  //  s1, s4 | s2, s3 | required (a1<b1, a2>b2) |
+  //
+  // In order to catch what pattern is involved here, we can write each pair
+  // [A, B] as the ordered sequence of (A|B), and map each element of that
+  // sequence to a symbol representing which of the subset it is a member of :
+  //
+  //   [ a1, ..., am ] -> "/"
+  //   [ b1, ..., bm ] -> "\"
+  //
+  // We use these specific symbols to draw a path describing "how unequal" are
+  // the subsets of a given pair, by catenating them so that they form peaks
+  // which can go above and/or below the horizontal line :
+  //
+  //     A   |    B   | (A|B) ordered  | Path | S(A) ≠ S(B) |
+  //         |        |                |      |             |
+  //         |        |                |  /\  |             |
+  //  s1, s2 | s3, s4 | a1, a2, b1, b2 | /  \ |  trivial    |
+  //         |        |                |      |             |
+  //  s1, s3 | s2, s4 | a1, b1, a2, b2 | /\/\ |  trivial    |
+  //         |        |                |      |             |
+  //  s1, s4 | s2, s3 | a1, b1, b2, a2 | /\   |     ?       |
+  //         |        |                |   \/ |             |
+  //
+  //   -> If the path stay above the horizontal line, it means S(A) < S(B).
+  //   -> If the path stay below the horizontal line, it means S(B) < S(A).
+  //   -> If it crosses the horizontal line though, a test is required.
+  //
+  // Similarly, for n=6, and m=3, we can "see" that there are 5 out of 10 subset
+  // pairs that have their sum unequal without requiring a test :
+  //
+  //      A      |    B       |     (A|B) ordered      |  Path  | S(A) ≠ S(B) |
+  //             |            |                        |        |             |
+  //             |            |                        |   /\   |             |
+  //             |            |                        |  /  \  |             |
+  //  s1, s2, s3 | s4, s5, s6 | a1, a2, a3, b1, b2, b3 | /    \ |  trivial    |
+  //             |            |                        |        |             |
+  //             |            |                        |  /\/\  |             |
+  //  s1, s2, s4 | s3, s5, s6 | a1, a2, b1, a3, b2, b3 | /    \ |  trivial    |
+  //             |            |                        |        |             |
+  //             |            |                        |    /\  |             |
+  //  s1, s3, s4 | s2, s5, s6 | a1, b1, a2, a3, b2, b3 | /\/  \ |  trivial    |
+  //             |            |                        |        |             |
+  //             |            |                        |    /\  |             |
+  //  s2, s3, s4 | s1, s5, s6 | b1, a1, a2, a3, b2, b3 |   /  \ |     ?       |
+  //             |            |                        | \/     |             |
+  //             |            |                        |  /\    |             |
+  //  s1, s2, s5 | s3, s4, s6 | a1, a2, b1, b2, a3, b3 | /  \/\ |  trivial    |
+  //             |            |                        |        |             |
+  //             |            |                        |        |             |
+  //  s1, s3, s5 | s2, s4, s6 | a1, b1, a2, b2, a3, b3 | /\/\/\ |  trivial    |
+  //             |            |                        |        |             |
+  //             |            |                        |        |             |
+  //  s2, s3, s5 | s1, s4, s6 | b1, a1, a2, b2, a3, b3 |   /\/\ |     ?       |
+  //             |            |                        | \/     |             |
+  //             |            |                        |        |             |
+  //  s1, s4, s5 | s2, s3, s6 | a1, b1, b2, a2, a3, b3 | /\  /\ |     ?       |
+  //             |            |                        |   \/   |             |
+  //             |            |                        |        |             |
+  //  s2, s4, s5 | s1, s3, s6 | b1, a1, b2, a2, a3, b3 |     /\ |     ?       |
+  //             |            |                        | \/\/   |             |
+  //             |            |                        |        |             |
+  //  s3, s4, s5 | s1, s2, s6 | b1, b2, a1, a2, a3, b3 |     /\ |     ?       |
+  //             |            |                        | \  /   |             |
+  //             |            |                        |  \/    |             |
 
-  //     A    |    B     | (A|B) ordered  |
-  //  s1 + s2 | s3 + s4  | a1, a2, b1, b2 |
-  //  s1 + s3 | s2 + s4  | a1, b1, a2, b2 |
-  //  s1 + s4 | s2 + s3  | a1, b1, b2, a2 |
+  // The problem now translates to : Given m "/" and m "\", we need to find the
+  // number of ways to form peaks that all stay above the horizontal line.
 
+  // This relates to Catalan numbers and Dyck words. In this context our peaks
+  // are called "mountain range". A Dyck word is a balanced (correctly nested)
+  // sequence of parentheses or brackets (which we could have used instead of
+  // "/" and "\").
 
+  // So, the number of peaks we are after corresponds to the number of distinct
+  // Dyck words with exactly m pairs of parentheses, which is the m-th Catalan
+  // number.
+  // @see 'Catalan Numbers.pdf' in ref/ directory.
+
+  // Which means :
+  // -> for n=4, m=2 we can discard C(2) subset pairs (2).
+  // -> for n=6, m=2 we can discard C(2) subset pairs per 6C4-combination (2*15).
+  // -> for n=6, m=3 we can discard C(3) subset pairs per 6C6-combination (5*1).
+  // ...
+
+  const n = 12;
+  let needTest = 0;
+  for (const m of range(2, Math.floor(n/2)+1)) {
+    const combi2m = nChooseK(n, 2*m);
+    const pairs = nChooseK(2*m, m) / 2;
+    needTest += combi2m * (pairs - catalan(m));
+  }
+
+  return needTest;
 }
