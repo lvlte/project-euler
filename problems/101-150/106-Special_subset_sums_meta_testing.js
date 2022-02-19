@@ -128,14 +128,14 @@ this.solve = function () {
   // The problem now translates to : Given m "/" and m "\", we need to find the
   // number of ways to form peaks that all stay above the horizontal line.
 
-  // This relates to Catalan numbers and Dyck words. In this context our peaks
-  // are called "mountain range". A Dyck word is a balanced (correctly nested)
+  // This relates to Catalan numbers and Dyck words. In this context, each path
+  // is called a "mountain range". A Dyck word is a balanced (correctly nested)
   // sequence of parentheses or brackets (which we could have used instead of
   // "/" and "\").
 
-  // So, the number of peaks we are after corresponds to the number of distinct
-  // Dyck words with exactly m pairs of parentheses, which is the m-th Catalan
-  // number.
+  // The number of ways to draw mountain ranges with m "/" and m "\" corresponds
+  // to the number of distinct Dyck words with exactly m pairs of parentheses,
+  // which is the m-th Catalan number.
   // @see 'Catalan Numbers.pdf' in ref/ directory.
 
   // Which means :
