@@ -120,7 +120,7 @@ this.solve = function () {
 this.solve2 = function () {
 
   // There is an interesting method to find integer solutions to a quadratic
-  // diophantine which is called Veta Jumping.
+  // diophantine which is called Vieta Jumping.
   // @see https://en.wikipedia.org/wiki/Vieta_jumping#Geometric_interpretation
 
   // The idea is that we can produce integer points by alternatively flipping
