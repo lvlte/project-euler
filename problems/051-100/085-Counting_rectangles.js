@@ -10,7 +10,7 @@
  * rectangles, find the area of the grid with the nearest solution.
  */
 
-const { quadratic } = require('../../lib/math');
+const { quadraticRoots } = require('../../lib/math');
 
 this.solve = function () {
   // Drawing a rectangle contained in a rectangular grid can be done by picking
@@ -86,7 +86,7 @@ this.solve = function () {
   let m = 0, n;
   do {
     const hm = h(++m);
-    [, n] = quadratic(hm, hm, -target);
+    [, n] = quadraticRoots(hm, hm, -target);
     [Math.floor(n), Math.ceil(n)].forEach(n => {
       const rect = hm*h(n)/4;
       const diff = Math.abs(nRect - rect);
