@@ -15,6 +15,12 @@
             {
                 "checkLoops": false
             }
+        ],
+        "max-len": [
+            "warn",
+            {
+                "code": 80
+            }
         ]
     }
 }
