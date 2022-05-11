@@ -25,14 +25,14 @@
  * divisors?
  */
 
-const { divisors } = require('../../lib/math.js');
+const { sigma0 } = require('../../lib/math.js');
 
 this.solve = function () {
   let t = 0, n = 0;
 
   // brute force...
   do t += ++n;
-  while (divisors(t).length < 500);
+  while (sigma0(t) < 50);
 
   return t;
 }
