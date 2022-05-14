@@ -15,8 +15,6 @@ const { sum } = require('../../lib/math');
 
 this.solve = function () {
   const n = 100;
-  // const { bigFact } = require('../lib/utils');
-  // const number = bigFact(n); huhu
 
   // Consider each digit*10^exp separately, right-to-left ([units, tens, ...]).
   let digits = [1];
