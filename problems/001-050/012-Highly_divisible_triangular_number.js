@@ -32,7 +32,7 @@ this.solve = function () {
 
   // brute force...
   do t += ++n;
-  while (sigma0(t) < 50);
+  while (sigma0(t) < 500);
 
   return t;
 }
