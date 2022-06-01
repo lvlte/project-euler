@@ -80,13 +80,11 @@ this.solve = function () {
 
   // Fill the given chain until it loops on itself.
   const fillChain = (chain, n) => {
-    while (n = fSum(digits(n, false))) {
-      if (chain.delete(n)) {
-        chain.add(n);
-        break;
-      }
+    do {
       chain.add(n);
+      n = fSum(digits(n, false));
     }
+    while (!chain.has(n));
   }
 
   let count = 0;
@@ -97,7 +95,7 @@ this.solve = function () {
 
     for (let i=0; i<combis.length; i++) {
       const n = +combis[i].join('');
-      let chain = new Set([n]);
+      const chain = new Set();
       fillChain(chain, n);
 
       if (chain.size != nrTerms)

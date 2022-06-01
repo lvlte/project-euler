@@ -32,7 +32,7 @@ this.solve = function () {
     const cube = n**3;
     if (stop && cube >= stop)
       break;
-    const digCombi = digits(cube).sort((a, b) => a - b).join('');
+    const digCombi = digits(cube, false).sort((a, b) => a - b).join('');
     if (digCombi in cubeHashT) {
       cubeHashT[digCombi].push(cube);
       if (cubeHashT[digCombi].length == nPerm) {

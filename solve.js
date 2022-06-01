@@ -32,12 +32,12 @@ require (`./lib/utils`);
 const Problem = require (`./problems/${pbDir}/${pb[0]}`);
 
 const pbName = pb[0].split(/[-.]/)[1].replace(/_/g, ' ');
-const timerLabel = '-> run time ';
+const timerLabel = '-> run time';
 
 console.log(`\nProblem ${pid} - ${pbName}`);
 console.time(timerLabel);
 
 const solution = Problem.solve();
 
-console.log('-> solution: ', solution);
+console.log('-> solution:', solution);
 console.timeEnd(timerLabel);

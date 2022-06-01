@@ -29,7 +29,7 @@ this.solve = function () {
   chain[89] = 89;
 
   // Returns the next number in chain, the sum of the square of the digits of n.
-  const next = (n, s=0) => digits(n, false).forEach(d => s += squares[d]) || s;
+  const next = (n, s=0) => digits(n).forEach(d => s += squares[d]) || s;
 
   // Expand chain starting from n and until its final value is known, mapping
   // each number in between to that final value, 1 or 89.

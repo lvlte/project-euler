@@ -36,7 +36,8 @@ this.solve = function () {
   const isPandigital = nStr => {
     if (nStr.length != 9)
       return false;
-    return [...new Set((nStr+'0').split(''))].length === 10;
+    const s = new Set(nStr);
+    return s.size === 9 && !s.has('0');
   }
 
   let pandigitals = [];
