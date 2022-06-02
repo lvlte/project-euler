@@ -31,17 +31,19 @@ this.solve = function () {
   // 1. Increasing numbers
   //
   // If we focus on the increasing numbers, we can see they correspond to all
-  // k-multicombinations of the set of digits [ 0 to 9 ], with k=3. The key is
-  // to consider each number as a unique multi-combination (with repetition
-  // allowed) of k digits, including leading zeros. So the number of increasing
-  // numbers below one-thousand is ((n; k)), read "n multichoose k", with n=10
-  // and k=3, which gives us 220.
+  // k-multicombinations (k-combinations with repetitions) of the set of digits
+  // [ 0 to 9 ], with k=3. The key is to consider each number as a unique multi-
+  // combination of k digits, including leading zeros.
   //
   //  `nkCombinations('0123456789', 3, true)` outputs these numbers as 3-digits
-  //  strings, in ascending order.
+  //  strings, in ascending order, or more specifically, lexicographically with
+  //  respect to the input alphabet of increasing digits.
   //
   // To picture the thing, we can format the increasing numbers less than 100 as
-  // a right triangle, as follows :
+  // a right triangle, as follows (note for the next part that these are all the
+  // combinations that involves the first digit of the alphabet, '0', or more
+  // specifically, this is '0' combined with all multicombinations of 2 digits
+  // from the set [0 to 9]) :
   //
   //    '000', '001', '002', '003', '004', '005', '006', '007', '008', '009'
   //           '011', '012', '013', '014', '015', '016', '017', '018', '019'
@@ -54,9 +56,11 @@ this.solve = function () {
   //                                                            '088', '089'
   //                                                                   '099'
   // '010' is not present as it is a permutation of '001'.
-  // '020' and '021' are the permutations of respectively '002' and '021', etc.
+  // '020' and '021' are the permutations of respectively '002' and '012'.
+  //  ... etc.
   //
-  // The second triangle goes as follows :
+  // The second triangle goes as follows ('1' combined with multicombinations
+  // of 2 digits from the set [1 to 9]) :
   //
   //           '111', '112', '113', '114', '115', '116', '117', '118', '119'
   //                  '122', '123', '124', '125', '126', '127', '128', '129'
@@ -75,14 +79,20 @@ this.solve = function () {
   //                                                                   '899'
   //  and
   //                                                                   '999'
+  //
+  // So the number of increasing numbers below one-thousand is ((n; k)), read
+  // "n multichoose k", with n=10 and k=3, which gives us :
+  //
+  //  (n+k-1)! / (k!(n-k)!) = 12! / (3!7!)
+  //                        = 220
+  //
 
   // 2. Decreasing numbers
   //
   // Now let's consider the decreasing numbers. One might think that there are
   // as many decreasing numbers as there are increasing numbers, since we can
   // reverse any increasing numbers like '123' to get its decreasing counterpart
-  // '321', which corresponds to output `nkCombinations('9876543210', 3, true)`.
-  // For example if we flip our 000-to-099 triangle, we got :
+  // '321', eg. if we flip our 000-to-099 triangle, we get :
   //
   //  '900', '800', '700', '600', '500', '400', '300', '200', '100', '000'
   //  '910', '810', '710', '610', '510', '410', '310', '210', '110'
@@ -95,25 +105,33 @@ this.solve = function () {
   //  '980', '880'
   //  '990'
   //
-  // It works, but we will miss all decreasing numbers with less than k-digits,
-  // that is, those corresponding to a k-digits string having leading zero(s),
-  // except '000', like :
+  // It works, and we could also use `nkCombinations('9876543210', 3, true)` to
+  // output these combinations in descending order (or lexicographically, with
+  // respect to the order of the input set, the alphabet of decreasing digits).
+  //
+  // But the thing is that we will miss all decreasing numbers with less than k
+  // digits, that is, those corresponding to a k-digits string having leading
+  // zero(s), except '000'. Why ? since the triangle originally contains all the
+  // combinations involving a '0' ? Well, this is because they (the missing) are
+  // permutations of existing combinations :
   //
   //   '010',                (permutation of '100')
   //   '020', '021',         (permutation of '200', '210)
   //   '030', '031', '032',  (permutation of '300', '310', '320')
   //    ... etc.
-  //   and the strings with two leading zeros corresponding to numbers from 1
+  //   plus the strings with two leading zeros corresponding to numbers from 1
   //   to 9, which should also be considered as decreasing.
   //
-  // The trick is to add another zero to our reversed set of digits, or, to
+  // So the trick is to add another zero to our reversed set of digits, or, to
   // prevent any confusion, a character that represent a leading zero, like 'x'.
   //
-  // So we shall use the set [x, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0].
+  // The idea is to use the set [x, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0], like if x was
+  // a digit greater than 9, so that we can can produce all decreasing numbers
+  // using multichoose combinations, including those with leading zero(s).
   //
   //  `nkCombinations('x9876543210', 3, true)` outputs these numbers as 3-digits
-  //  strings, in descending order (the function do things in a lexicographic
-  //  way, with respect to the order of the input set, the alphabet).
+  //  strings, in descending order (somehow, like if we were in base 11, x being
+  //  the 11th digit coming after 9, even if we map it to a zero).
   //
   // The triangle that were missing goes as follows :
   //
@@ -131,11 +149,15 @@ this.solve = function () {
   //
   // This means that we will have some extra combinations to discard, that is,
   // the combinations corresponding to the number 0 (already counted as '000')
-  // consisting of x's and zeros that don't contain any other (non-zero) digits,
+  // consisting of x's and 0's that don't contain any other (non-zero) digits,
   // eg. for k=3 : 'xxx', 'xx0', 'x00'. There will be k of them, whatever k.
   //
   // So, the number of decreasing numbers below one-thousand is ((n; k)) - k,
-  // with n=11 and k=3, which gives us 286 - 3 = 283.
+  // with n=11 and k=3, which gives us :
+  //
+  //  (n+k-1)! / (k!(n-k)!) - k = 13! / (3!8!) - 3
+  //                            = 283
+  //
 
   // 3. Non-bouncy numbers
   //
@@ -152,12 +174,24 @@ this.solve = function () {
   //
   // The pattern is pretty obvious, there are 9*k + 1 of them.
   //
+  // So to finish up with the non-bouncy numbers below 1000, we got the expected
+  // count :
+  //
+  //  220 + 283 - (9*3 + 1) = 475
+  //
   // Finally, we got that the number of non-bouncy numbers below 10^k is equal
   // to :
   //
   //  ((10; k)) + ((11; k)) - k - (9*k + 1)
+  //
 
-  // Last thing, the problem states that there are only 12951 numbers below
+  // Nb. This can be generalized to any base n for counting the number of
+  // non-bouncy numbers below a power of that base, n^k :
+  //
+  //  ((n; k)) + ((n+1; k)) - k - ((n-1)*k + 1)
+  //
+
+  // One last thing, the problem states that there are only 12951 numbers below
   // one-million that are not bouncy, and 277032 non-bouncy numbers below 10¹⁰,
   // which offset the count given by the formula above by 1, so they obviously
   // doesn't count the number 0 as non-bouncy and we need to substract an extra
