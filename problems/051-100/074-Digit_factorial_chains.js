@@ -30,7 +30,7 @@
  */
 
 const { nkCombinations, permuteU } = require('../../lib/combinatorics');
-const { sum, mfact } = require('../../lib/math');
+const { sum, factorial } = require('../../lib/math');
 const { digits, range } = require('../../lib/utils');
 
 this.solve = function () {
@@ -76,7 +76,7 @@ this.solve = function () {
   // replacements.
 
   // Returns the sum of the factorial of the given digits.
-  const fSum = dd => sum(dd.map(d => mfact(+d)));
+  const fSum = dd => sum(dd.map(d => factorial(+d)));
 
   // Fill the given chain until it loops on itself.
   const fillChain = (chain, n) => {

@@ -35,6 +35,8 @@ this.solve = function () {
   // The number of times an increment is used (mapped by index), mod 5 (10/2=5).
   let iCounter = Array(len).fill(0); // assuming n=1
 
+  // @need to explain, get back to it and don't get it easly...
+
   // Adjust increments and update n accordingly.
   const update = (n) => {
     let incr = 2;

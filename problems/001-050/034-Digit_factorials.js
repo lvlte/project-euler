@@ -11,7 +11,7 @@
  * Note: As 1! = 1 and 2! = 2 are not sums they are not included.
  */
 
-const { sum, mfact } = require('../../lib/math');
+const { sum, factorial } = require('../../lib/math');
 const { digits } = require('../../lib/utils');
 
 this.solve = function () {
@@ -47,7 +47,7 @@ this.solve = function () {
     const d = digits(n);
     let factDigSum = 0;
     for (let i=0; i<d.length; i++) {
-      factDigSum += mfact(d[i]);
+      factDigSum += factorial(d[i]);
       if (factDigSum > n)
         break;
     }

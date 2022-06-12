@@ -16,7 +16,7 @@
  */
 
 const { range } = require('../../lib/utils');
-const { mfact } = require('../../lib/math');
+const { factorial } = require('../../lib/math');
 const { permute, lehmerCode } = require('../../lib/combinatorics');
 
 this.solve = function () {
@@ -65,7 +65,7 @@ this.solve = function () {
   // is {4, 0, 2, 3, 1}.
 
   // p(n) returns the number of permutations we can make with n elements.
-  const p = mfact;
+  const p = factorial;
 
   const S = new Set(range(10));
   const perm = [];
@@ -101,7 +101,7 @@ this.solve2 = function () {
     const code = lehmerCode(p[i]);
     let index = 0;
     for (let j=0; j<code.length; j++) {
-      index += code[j]*mfact(code.length - j - 1);
+      index += code[j]*factorial(code.length - j - 1);
     }
     orderedP[index] = p[i];
   }
