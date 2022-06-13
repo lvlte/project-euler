@@ -30,14 +30,12 @@ this.solve = function () {
   //      https://mathworld.wolfram.com/PartitionFunctionP.html
   //      https://oeis.org/A000041
 
-  // We already had to deal with (restricted) partition numbers (cf. problem 31
-  // which is a tough one). Here, it is easier as we just have to count them and
-  // exclude the one that contains only n.
+  // We already had to deal with (restricted) partitions in problem 31. Here, we
+  // use a dedicated partition function which focuses on the counting and avoid
+  // having to keep track of the partitions themselves.
 
-  // The partition function p(n) represents the number of possible partitions
-  // of a non-negative integer n :
-  //  P(n) = (1/n) * Σ[k=0,n-1] (σ₁(n-k) * P(k))
-  //  where σ₁(n) or sigma1(n) is the divisor function.
+  // Since we have to consider sums having at least two parts, we just need to
+  // substract one (the partition that contains only n).
 
   return intPartition(n) - 1;
 }

@@ -16,7 +16,7 @@
  * five thousand different ways ?
  */
 
-const { intPartitionR } = require('../../lib/combinatorics');
+const { intPartition } = require('../../lib/combinatorics');
 const { getPrimes } = require('../../lib/prime');
 
 this.solve = function () {
@@ -28,32 +28,10 @@ this.solve = function () {
   // We already had to deal with restricted partitions in problem 31 (Coin sums)
   // where parts size were restricted to some coin denominations.
 
-  // For the coin sums problem, we actually built the partitions of n=200 by
-  // combining parts, which could have been useful if we were to produce them
-  // to do something with it, but is not efficient when we are only asked to
-  // count them.
-
-  // A more efficient way to solve such change making problems is to use dynamic
-  // programming, solving the puzzle from bottom up instead of recursively :
-  // Given a set of available parts S sorted in ascending order,
-  // -> Let consider N and P[N] the number of restricted partitions of N we need
-  //    to find.
-  // -> Let P an array where P[n] will be the number of r. partitions of n,
-  //    with 0 <= n <= N.
-  // -> Set P[0] = 1, then solve sub-problem for i, with 0 < i < |S| :
-  //    -> let j : S[i] <= j <= N
-  //    -> add to p[j] the number of partitions of j-S[i] which are already
-  //       computed and represents the combinations of parts smaller than S[i]
-  //       that can be (re-)used for adding up to j.
-  //    -> increase j and repeat until j = N.
-  // -> At the end of the i,j loop, the partitions of n that can be made from
-  //    parts belonging to S are computed for n <= N.
-
-  // @see intPartitionR(n, k, S)
-
-  // Now that we got this function, we can find for which n it returns a value
-  // exceeding five thousand : starting with a small value, all we need is to
-  // increment n and adjust the prime parts accordingly, then check the result.
+  // Now that we got a dedicated function, we can easily find for which n the
+  // number of restricted partitions exceeds five thousand : starting with a
+  // small value for which p(n) < 5000, all we need is to increment n and adjust
+  // the prime parts accordingly, until p(n) > 5000.
 
   const nWays = 5_000;
 
@@ -63,7 +41,7 @@ this.solve = function () {
   const limit = 100;
   const primes = getPrimes(limit);
 
-  let n = 29; // intPartition(29) < 5000, then intPartitionR(29, S) < 5000
+  let n = 29; // intPartition(30) > 5000 (unrestricted)
   let pn = 0; // partition number
 
   // Adjusting prime parts according to n.
@@ -73,7 +51,7 @@ this.solve = function () {
   do {
     if (n%2 && primes[index+1] <= n)
       primeParts.push(primes[index++]);
-    pn = intPartitionR(n, false, primeParts);
+    pn = intPartition(n, null, primeParts);
   }
   while (pn <= nWays && n++);
 

@@ -18,7 +18,7 @@
  * include it once in your sum.
  */
 
-this.solve = function () {
+this.solve1 = function () {
   const SUM = 200;
   const coins = [200, 100, 50, 20, 10, 5, 2, 1];
 
@@ -67,15 +67,28 @@ this.solve = function () {
           break; // next n is smaller
       }
     }
-  };
+  }
 
   combine(coins);
 
   return count;
+}
 
+const { intPartition } = require('../../lib/combinatorics');
+
+this.solve = function () {
   // Actually we count the restricted partitions of n : given a restricted set
-  // of coins, we count the ways to make n=200.
-  // @see function intPartitionR()
+  // of parts, the coins, we count the ways to make n=200.
   // @see http://oeis.org/wiki/Restricted_partitions
   // @see http://oeis.org/wiki/Partitions
+
+  // After solving other problems related to integer partitions (76 and 77), I
+  // came up with a dedicated function which is more efficient than the solution
+  // above.
+  // @see function intPartition() from combinatorics.js
+
+  const n = 200;
+  const coins = [1, 2, 5, 10, 20, 50, 100, 200];
+
+  return intPartition(n, null, coins);
 }
