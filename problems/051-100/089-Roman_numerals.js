@@ -77,34 +77,33 @@ this.solve = function () {
     C: ['D', 'M']
   };
 
-  // Helper that return the given roman numeral number in its minimal form by
-  // replacing consecutive numerals with subtractive pairs where possible.
-  const minForm = number => {
-    // Units occuring more than 3 times consecutively (ignore 'M' since there
-    // is no greater value for subtractive pairing).
-    const units = number.maxConsecutive().filter((k, v) => v > 3 && k != 'M');
+  // Helper that return the given roman numeral in its minimal form by replacing
+  // consecutive identical units with subtractive pairs.
+  const minForm = numeral => {
+    // Identical units occuring more than 3 times consecutively (ignore 'M'
+    // since there is no greater value for subtractive pairing).
+    const r_units = numeral.match(/([^M])\1{3,}/g) ?? [];
 
-    for (const r in units) {
-      // The sequence of r to replace and its index in the given numeral.
-      const seq = r.repeat(units[r]);
-      const i = number.indexOf(seq);
+    for (const seq of r_units) {
+      const unit = seq[0];
+      const i = numeral.indexOf(seq);
 
-      const [r1, r2] = substrativePairs[r];
+      const [r1, r2] = substrativePairs[unit];
 
-      // Here we know there are 4 consecutive units of r, by default we replace
+      // Here we know there are 4 consecutive characters, by default we replace
       // them with the smallest substractive pair.
-      let [pattern, replacement] = [seq, r + r1];
+      let [pattern, replacement] = [seq, unit + r1];
 
       // Except in case where the numeral placed before r is r1 (which cannot be
       // used more than once), then we replace r1+4*r with r2-r.
-      if (i > 0 && number[i-1] === r1) {
-        [pattern, replacement] = [r1 + seq, r + r2];
+      if (i > 0 && numeral[i-1] === r1) {
+        [pattern, replacement] = [r1 + seq, unit + r2];
       }
 
-      number = number.replace(pattern, replacement);
+      numeral = numeral.replace(pattern, replacement);
     }
 
-    return number;
+    return numeral;
   }
 
   // Finding the number of characters saved.

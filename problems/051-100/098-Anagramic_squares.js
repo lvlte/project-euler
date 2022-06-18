@@ -92,7 +92,8 @@ this.solve = function () {
         toKey[c] = i++;
       return toKey[c];
     }).join('');
-    const fromKey = toKey.map((k, v) => [v, k]);
+    const fromKey = {};
+    Object.keys(toKey).forEach(c => fromKey[toKey[c]] = c);
     RGS[element] = { toKey, fromKey, str };
     return RGS[element];
   };
