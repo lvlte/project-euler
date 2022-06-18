@@ -20,7 +20,7 @@ this.solve = function () {
 
   // brute force..
   for (let n=0; n<limit; n++) {
-    if (isPalindromic(''+n) && isPalindromic(n.toBinary()))
+    if (isPalindromic(''+n) && isPalindromic(n.toString(2)))
       sum += n;
   }
 
