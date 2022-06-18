@@ -10,7 +10,7 @@
  * contain the same digits.
  */
 
-const { digits, range } = require('../../lib/utils');
+const { digits, range, count } = require('../../lib/utils');
 
 this.solve = function () {
   // Start with x and 6x that must contain exactly the same digits :
@@ -39,9 +39,9 @@ this.solve = function () {
 
   // Checks if the given number contain the same digits when multiplied
   const xMatch = x => {
-    const occ = digits(x, false).occurrences();
+    const occ = count(digits(x, false));
     for (let i=0; i<multipliers.length; i++) {
-      if (!occMatch(digits(x*multipliers[i], false).occurrences(), occ))
+      if (!occMatch(count(digits(x*multipliers[i], false)), occ))
         return false;
     }
     return true;

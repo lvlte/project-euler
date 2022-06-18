@@ -14,7 +14,7 @@
 
 const { nkCombinations, permute } = require('../../lib/combinatorics');
 const { sum } = require('../../lib/math');
-const { load, range } = require('../../lib/utils');
+const { load, range, count } = require('../../lib/utils');
 
 const message = load('p059_cipher.txt', false).split(',').map(code => +code);
 
@@ -77,7 +77,7 @@ this.solve = function () {
       return false;
     // Check letter frequency (lowercased)
     const letters = str.map(c => c|32).filter(allowedChar);
-    const freq = letters.occurrences();
+    const freq = count(letters);
     if (freq[space]/str.length < minSpace || freq[e]/str.length < minE)
       return false;
     if ((freq[q] || 0)/str.length > maxQ || (freq[z] || 0)/str.length > maxZ)

@@ -15,7 +15,7 @@
  * How many hands does Player 1 win ?
  */
 
-const { load } = require('../../lib/utils');
+const { load, count } = require('../../lib/utils');
 const gameHands = load('p054_poker.txt');
 
 // Suits:
@@ -138,13 +138,14 @@ this.solve = function () {
 
   // Map count to values where count is the number of cards of the same value.
   const cardValueByCount = (values) => {
-    const count = values.occurrences();
+    const occurrences = count(values);
     let countMap = {};
-    for (const value in count) {
-      if (count[value] in countMap)
-        countMap[count[value]].push(value);
+    for (const value in occurrences) {
+      const n = occurrences[value];
+      if (n in countMap)
+        countMap[n].push(value);
       else
-        countMap[count[value]] = [value];
+        countMap[n] = [value];
     }
     return countMap;
   }

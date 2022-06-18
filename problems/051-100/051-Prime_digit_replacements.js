@@ -23,7 +23,7 @@
 const { nkCombinations } = require('../../lib/combinatorics');
 const { sum, remZero } = require('../../lib/math');
 const { iterPrimes, isPrime } = require('../../lib/prime');
-const { range, digits } = require('../../lib/utils');
+const { range, digits, count } = require('../../lib/utils');
 
 this.solve = function () {
   // The first thing to note is that since we are searching for an eight prime
@@ -129,7 +129,7 @@ this.solve = function () {
   // Check if the given prime digits match the conditions above, in which case
   // it returns the matching wildcard digit, false otherwise.
   const checkDigits = (pDigits) => {
-    const occ = pDigits.occurrences();
+    const occ = count(pDigits);
     let d; // the wildcard digit
     if (!(occ[2] >= nWildcards && (d=2) || occ[1] >= nWildcards && (d=1) || occ[0] >= nWildcards))
       return false;
