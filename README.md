@@ -28,7 +28,7 @@
 
 ## Installation
 
-All you need is Node.js >= 14.18.0 (no module dependency / no external libraries required). 
+All you need is Node.js >= 16.6.0 (no module dependency / no external libraries required). 
 
 
 ## Usage
