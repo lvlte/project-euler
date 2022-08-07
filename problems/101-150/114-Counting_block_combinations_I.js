@@ -44,6 +44,8 @@
 
 this.solve = function () {
 
+  // Nb. The entire reasoning below also enables to solve the next 3 problems.
+
   // At first glance, we could be tempted to translate grey squares into ones
   // and red blocks of length k into k (since k must be greater than one), so
   // that one way of filling a n-units row corresponds to a unique ordered
@@ -73,7 +75,7 @@ this.solve = function () {
   // There are 2ⁿ⁻¹ compositions of n ≥ 1, which is highly reminiscent of the
   // number of possible binary strings of length n-1, or in our case, the ways
   // of filling a (n-1)-unit row in red (ie. unit=bit, grey=0, red=1) whatever
-  // the red block length.
+  // the length of the red blocks.
 
   // I realized then that, in order to properly map one way of filling a row to
   // the corresponding composition and conversely, we should focus not on the n
@@ -87,7 +89,8 @@ this.solve = function () {
   // length if we want (in contrast to the original approach).
 
   // All this to say that each of the compositions of n+1 correspond to one
-  // unique way of filling a n-units row.
+  // unique way of filling a n-units row with at least one grey square between
+  // red blocks.
 
   // Ways of filling a 7-units row with red blocks of minimum 3-units, and the
   // corresponding compositions of 8 :
@@ -155,15 +158,19 @@ this.solve = function () {
   //                    = (1-x) / (1 - 2x + x² - x⁴)
 
   // Reading the denominator of the generating function, we got that the number
-  // aₙ of A-restricted compositions of n we are after satisfies the recurrence
-  // relation :
+  // aₙ of A-restricted compositions of n we are after satisfies the following
+  // recurrence relation :
   //
-  //  aₙ = 2aₙ₋₁ − aₙ₋₂ + aₙ₋₄ with initial conditions a₀ = a₁ = a₂ = a₃ = 1
+  //  aₙ = 2aₙ₋₁ − aₙ₋₂ + aₙ₋₄
+  //
+  // with initial conditions a₀ = a₁ = a₂ = a₃ = 1.
+  //
+  // a₀ counts the empty composition, and there is only one way to compose 1,
+  // 2, and 3, that is as a sum of ones, the next allowed part being 4.
 
-  // Finally, the code. We just generate the sequence according to the given
-  // recurrence. We could only keep track of the last four terms (shift&push),
-  // but it's not necessary as the array won't grow that much (it could be with
-  // greater n though).
+  // Finally, the code : We simply have to generate the sequence according to
+  // the recurrence above. We could only keep track of the last four terms but
+  // it's not necessary as the array won't grow that much.
 
   const n = 51;
   const S = Array(4).fill(1);
