@@ -71,7 +71,8 @@ this.solve2 = function () {
 
   // A generating function is a single function used to "encode" an infinite
   // sequence. The output of such function is not the nth term of the sequence
-  // but a power series whose coefficients are the actual terms.
+  // but a power series whose coefficients are the actual terms :
+  //  G(x) = a₀ + a₁x + a₂x² + a₃x³ + a₄x⁴ + ...
   // @see https://discrete.openmathbooks.org/dmoi2/section-27.html
 
   // The generating function 1/(1-x) yields the series :
@@ -92,7 +93,9 @@ this.solve2 = function () {
   // We are given Π[p∈P]1/(1-xᵖ), which corresponds to the product of the power
   // series of 1/(1-xᵖ) for p the prime parts to be used. This means there is
   // a generating function and its corresponding series for each prime parts,
-  // and we need to compute the product of these generating functions.
+  // and we need to compute the product of these generating functions. Then, in
+  // the resulting sequence, we just have to find the index of the first term
+  // that exceeds five thousand.
 
   // An infinite power series is an infinite sum of terms. We can't manipulate
   // infinite sequences, so we need to set an arbitrary limit for the number of

@@ -33,7 +33,7 @@ this.solve = function () {
   //  Fn = ...
 
   // The number of terms in the Farey sequence for the integer n is :
-  //  Fn : |Fn| = 1 + Σ(m=1,n)φ(m)
+  //  Fn : |Fn| = 1 + Σ[m=1,n]φ(m)
   //       |Fn| = 1 + Φ(n)           where Φ() is the summatory totient function
 
   const N = 1 + summatoryTotient(d);

@@ -136,12 +136,13 @@ this.solve = function () {
   // The number of ways to draw mountain ranges with m "/" and m "\" corresponds
   // to the number of distinct Dyck words with exactly m pairs of parentheses,
   // which is the m-th Catalan number.
+  // @see https://en.wikipedia.org/wiki/Catalan_number
   // @see 'Catalan Numbers.pdf' in ref/ directory.
 
   // Which means :
-  // -> for n=4, m=2 we can discard C(2) subset pairs (2).
-  // -> for n=6, m=2 we can discard C(2) subset pairs per 6C4-combination (2*15).
-  // -> for n=6, m=3 we can discard C(3) subset pairs per 6C6-combination (5*1).
+  // - for n=4, m=2 we can discard C(2) subset pairs (2).
+  // - for n=6, m=2 we can discard C(2) subset pairs per 6C4-combination (2*15).
+  // - for n=6, m=3 we can discard C(3) subset pairs per 6C6-combination (5*1).
   // ...
 
   const n = 12;
