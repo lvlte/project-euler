@@ -18,8 +18,6 @@
  * Find the least value of n for which p(n) is divisible by one million.
  */
 
-const { remZero, pentagonal } = require('../../lib/math');
-
 this.solve = function () {
   // Again we have to deal with unrestricted partitions of n.
 
@@ -45,8 +43,8 @@ this.solve = function () {
   //  Π[i∈ℕ](1-x^i) = (1-x)(1-x²)(1-x³) ...
   //  Π[i∈ℕ](1-x^i) = 1 - x - x² + x⁵ + x⁷ - x¹² - x¹⁵ + x²² + x²⁶ - ...
 
-  // where the coefficient sequence corresponds to the generalized pentagonal
-  // numbers sequence, which is given by the formula :
+  // where the sequence of exponents 0, 1, 2, 5, 7, 12, ... corresponds to the
+  // generalized pentagonal numbers sequence, which is given by the formula :
   //  aₖ = k(3k−1)/2, for k in { 1, −1, 2, −2, 3, -3, ... }
 
   // This implies a recurrence for calculating the number of partitions of n :
@@ -77,8 +75,8 @@ this.solve = function () {
   }();
 
   let n = 0;
-  let pnRem = [1]; // remainders of p(n) % modulus
-  let pentagonals = [pentaGen.next().value];
+  let pnRem = [1]; // remainders of p(n) % modulus, p(0) = 1
+  let pentagonals = [];
 
   do {
     pnRem[++n] = 0;
@@ -86,12 +84,12 @@ this.solve = function () {
       pentagonals.push(pentaGen.next().value);
     for (let i=0, m=-1; pentagonals[i] <= n; i++) {
       const k = pentagonals[i];
-      m = remZero(i, 2) ? -m : m;
+      m = (i & 1) ? m : -m;
       pnRem[n] += m*pnRem[n-k];
     }
     pnRem[n] %= modulus;
   }
-  while (!remZero(pnRem[n], modulus));
+  while (pnRem[n] !== 0);
 
   return n;
 }
