@@ -18,6 +18,8 @@
  * Find the least value of n for which p(n) is divisible by one million.
  */
 
+const { pentagonal } = require('../../lib/math');
+
 this.solve = function () {
   // Again we have to deal with unrestricted partitions of n.
 
