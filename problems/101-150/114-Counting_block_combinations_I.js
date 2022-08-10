@@ -92,8 +92,8 @@ this.solve = function () {
   // unique way of filling a n-units row with at least one grey square between
   // red blocks.
 
-  // Ways of filling a 7-units row with red blocks of minimum 3-units, and the
-  // corresponding compositions of 8 :
+  // For example, listed below are the ways of filling a 7-units row with red
+  // blocks of minimum 3-units, and the corresponding compositions of 8 :
   //
   //  | | | | | | | |   <->   1 + 1 + 1 + 1 + 1 + 1 + 1 + 1
   //
@@ -119,12 +119,13 @@ this.solve = function () {
   //
   //  |X|X|X|X|X|X|X|   <->   8
 
-  // So we just have to count the "A-restricted" compositions of n+1, with
+  // So we just have to count "A-restricted" compositions, A being the set of
+  // allowable parts, which given the red block length rule, excludes 2 and 3 :
   //
-  //  A = { 1, 2, ... , n+1 } ∖ {2, 3}
+  //  A = ℤ⁺ ∖ {2, 3}
   //
-  // that is, the set of positive integers less than or equal to n+1, minus the
-  // set {2, 3} according the red block length rule.
+  // Nb. A is not upper bounded, it has to be defined regardless of n so that
+  // the following holds true.
 
   // The number of A-restricted compositions of n into exactly k parts is given
   // by the coefficient of xⁿ in the expansion of (Σ[a∈A]xᵃ)ᵏ.
@@ -166,7 +167,7 @@ this.solve = function () {
   // with initial conditions a₀ = a₁ = a₂ = a₃ = 1.
   //
   // a₀ counts the empty composition, and there is only one way to compose 1,
-  // 2, and 3, that is as a sum of ones, the next allowed part being 4.
+  // 2, and 3, that is with a sum of ones, the next allowed part being 4.
 
   // Finally, the code : We simply have to generate the sequence according to
   // the recurrence above. We could only keep track of the last four terms but
