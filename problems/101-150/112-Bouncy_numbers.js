@@ -23,20 +23,27 @@
  * 99%.
  */
 
+const { nMultichooseK } = require('../../lib/combinatorics');
 const { signum } = require('../../lib/math');
 const { digits } = require('../../lib/utils');
 
 this.solve = function () {
 
-  // This is a basic brute force approach... I hope to be able to get back to it
-  // later with something better.
+  // Having solved problem 113, we are able to count the number of non-bouncy
+  // numbers below a power of 10, so we can deduce the number of bouncy numbers
+  // below 10ᵏ for increasing value of k, until their ratio reaches or exceeds
+  // 99%.
+
+  // From there, starting with values that are as close as possible to the
+  // target, we can find the least number for which the ratio is exactly 99%
+  // using brute force.
 
   let n = 21780;
   let r = 0.9;
   let count = n * r;
 
   const isBouncy = n => {
-    const D = digits(n);
+    const D = digits(n, false);
     let s1 = 0;
     for (let i=1; i<D.length; i++) {
       const s2 = signum(D[i] - D[i-1]);
@@ -46,7 +53,28 @@ this.solve = function () {
         return true;
     }
     return false;
+  };
+
+  const bouncyBelow10Ek = k => {
+    // @see problem 113
+    const increasing = nMultichooseK(10, k);
+    const decreasing = nMultichooseK(11, k) - k;
+    const both = 9*k + 1;
+    return 10**k - (increasing + decreasing - both);
+  };
+
+  let k = Math.ceil(Math.log10(n));
+  let next;
+
+  while ((next = bouncyBelow10Ek(k)) / 10**k < 0.99) {
+    count = next;
+    k++;
   }
+
+  n = 10**(k-1);
+  r = count / n;
+
+  // console.log({n, count, r});
 
   while (r != 0.99) {
     if (isBouncy(++n)) {
