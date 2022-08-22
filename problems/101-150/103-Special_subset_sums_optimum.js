@@ -80,7 +80,7 @@ this.solve = function () {
   const n = B.length;
 
   // Set of numbers to be used, and the corresponding k-combinations candidates.
-  const numbers = [...new Set(B.map(bn => range(bn-1, bn+2)).flat())];
+  const numbers = [...new Set(B.flatMap(bn => range(bn-1, bn+2)))];
   const sets = nkCombinations(numbers, n).sort((a, b) => sum(a) - sum(b));
 
   // Creates k-combinations of indexes from 0 to n-1, and for k in range [2, n],

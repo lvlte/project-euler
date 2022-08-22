@@ -39,7 +39,7 @@ this.solve = function () {
 
   // Permutations (order matters) of the different operator combinations.
   const operators = ['+', '-', '*', '/'];
-  const operations = nkCombinations(operators, k - 1, true).map(permuteU).flat();
+  const operations = nkCombinations(operators, k - 1, true).flatMap(permuteU);
 
   // Map operator strings to their respective function so that we can then use
   // normal Polish notation (prefix), for example : f['+'](a, b) = a + b
