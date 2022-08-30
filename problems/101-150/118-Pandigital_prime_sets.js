@@ -46,27 +46,26 @@ this.solve = function () {
 
   // We also use the divisibility rule mentioned above to check whether or not
   // a given part can be used to form a prime number : only those parts whose
-  // sum is not divisible by 3 need to be permuted and checked (we check the [3]
-  // beforehand).
+  // sum is not divisible by 3 need to be permuted and checked.
 
-  const primeCount = {};
+  // Initialize the cache by hand for some small parts.
+  const cache = new Map([ [2, 1], [3, 1], [5, 1], [7, 1], [13, 2], [17, 2] ]);
 
   // Returns the number of permutations of the given part that correspond to a
   // prime number.
   const nPrimePerm = part => {
-    const hash = part.join('');
-    if (!(hash in primeCount)) {
-      primeCount[hash] = 0;
-      if (hash in {2:2, 3:3, 5:5, 7:7})
-        return ++primeCount[hash];
-      if (remZero(sum(part), 3))
-        return 0;
+    const cid = +part.join(''); // nb. Map set/get faster with primitive keys.
+    if (cache.has(cid))
+      return cache.get(cid);
+    let count = 0;
+    if (!remZero(sum(part), 3)) {
       for (const p of permute(part)) {
         if (isPrime(+p.join('')))
-          primeCount[hash]++;
+          count++;
       }
     }
-    return primeCount[hash];
+    cache.set(cid, count);
+    return count;
   }
 
   // When we find a "prime" partition we got one or more pandigital prime set(s)
