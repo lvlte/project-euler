@@ -35,7 +35,7 @@ this.solve = function () {
   // The second thing is that all terms in each sum take the form c*aᵖ, and we
   // are interested in the remainder of these sums when divided by a². Modular
   // arithmetic tells us that (x+y) % n = (x%n + y%n) % n, and we know that for
-  // any integer p ≥ 2, c*aᵖ ≡ 0 mod a², so it simplify things :
+  // any integer p ≥ 2, c*aᵖ ≡ 0 (mod a²), so it simplify things :
   //
   //  n=1 : ( 2a                    ) % a²  =  2a  %  a²
   //  n=2 : ( 2a² + 2               ) % a²  =  2   %  a²
