@@ -61,7 +61,7 @@ this.solve = function () {
 
     // Highest value card.
     highCard: ({values}) => {
-      return values.last();
+      return values.at(-1);
     },
 
     // Two cards of the same value.

@@ -66,5 +66,5 @@ this.solve = function () {
     S[i] = [p, q];
   }
 
-  return sum(digits(S.last()[0]));
+  return sum(digits(S.at(-1)[0]));
 }

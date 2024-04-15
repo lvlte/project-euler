@@ -186,7 +186,7 @@ this.solve2 = function () {
 
   do {
     const branch = i++ % 2;
-    [x, y] = vietaJump(spiral[branch].last());
+    [x, y] = vietaJump(spiral[branch].at(-1));
     spiral[branch].push([x, y]);
   }
   while (x + y <= minNDiscs);

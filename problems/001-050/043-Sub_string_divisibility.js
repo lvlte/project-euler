@@ -52,7 +52,7 @@ this.solve = function () {
   ];
 
   while (primes.length) {
-    const candidates = A.last();
+    const candidates = A.at(-1);
     const next = [];
     p = primes.pop();
     for (let i=0; i<candidates.length; i++) {
@@ -66,7 +66,7 @@ this.solve = function () {
     A.push(next);
   }
 
-  const pandigitals = A.last().map(digits => {
+  const pandigitals = A.at(-1).map(digits => {
     const d = diff(set, digits).pop();
     return Number([d, ...digits].join(''));
   });

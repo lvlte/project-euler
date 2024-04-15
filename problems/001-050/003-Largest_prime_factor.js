@@ -12,5 +12,5 @@ const { primeFactors } = require('../../lib/prime.js');
 this.solve = function () {
   const n = 600851475143;
   const primes = primeFactors(n);
-  return primes.last();
+  return primes.at(-1);
 }

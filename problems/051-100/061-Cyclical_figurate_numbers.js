@@ -72,7 +72,7 @@ this.solve = function () {
     (function recursivePairing(set, missing) {
       if (set.length == 6)
         return sets.push(set);
-      const suffix = set.last() % 100;
+      const suffix = set.at(-1) % 100;
       for (const nGon of missing) {
         for (let i=0; i<polygonals[nGon].length; i++) {
           const n = polygonals[nGon][i];
@@ -104,7 +104,7 @@ this.solve = function () {
       continue;
     const nPrefix = (n - n%100) / 100;
     for (let j=0; j<sets.length; j++) {
-      if (nPrefix == sets[j].last() % 100) {
+      if (nPrefix == sets[j].at(-1) % 100) {
         cyclicSet = sets[j];
         break Search;
       }

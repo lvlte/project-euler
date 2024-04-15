@@ -87,7 +87,7 @@ this.solve = function () {
   };
 
   // Checks whether or not the given aliquot sequence forms an amicable chain.
-  const isAmicable = chain => chain && chain[0] === chain.last();
+  const isAmicable = chain => chain && chain[0] === chain.at(-1);
 
   let longest = [];
   let n = 1;

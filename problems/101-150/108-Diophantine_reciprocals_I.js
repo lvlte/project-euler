@@ -117,7 +117,7 @@ this.solve = function () {
 
   // Values of m, 2 <= m < pk, mapped to their corresponding prime factorization
   // represented as : { m: {m_p1: ^m_a1, ...m_pk: ^m_ak} }.
-  const M = range(2, primes.last()).mapToObj(m => [m, count(primeFactors(m))]);
+  const M = range(2, primes.at(-1)).mapToObj(m => [m, count(primeFactors(m))]);
 
   // Sums the prime exponents from E1 and E2 while checking for the 2nd rule.
   const sumExp = (E1, E2) => {

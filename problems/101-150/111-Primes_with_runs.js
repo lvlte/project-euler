@@ -160,7 +160,7 @@ this.solve = function () {
       for (const pxs of permuteU(xs)) {
         const c = Array(n).fill(d);
         xIdx.forEach((xi, i) => c[xi] = pxs[i]);
-        if (c[0] === 0 || (c.last() & 1) === 0)
+        if (c[0] === 0 || (c.at(-1) & 1) === 0)
           continue;
         C.push(+c.join(''));
       }

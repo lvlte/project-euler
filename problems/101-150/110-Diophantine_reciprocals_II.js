@@ -40,7 +40,7 @@ this.solve = function () {
   let n = product(primes);
 
   let exponents = primes.mapToObj(p => [p, 1]);
-  const M = range(2n, primes.last()).mapToObj(m => [m, count(primeFactors(m))]);
+  const M = range(2n, primes.at(-1)).mapToObj(m => [m, count(primeFactors(m))]);
 
   const sumExp = (E1, E2) => {
     const E = {};

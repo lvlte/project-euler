@@ -170,5 +170,5 @@ this.solve = function () {
 
   // As we use integer keys for A, which are the largest square candidates, they
   // are enumerated in ascending order.
-  return +Object.keys(A).last();
+  return +Object.keys(A).at(-1);
 }

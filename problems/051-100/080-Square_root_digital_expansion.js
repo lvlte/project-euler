@@ -42,7 +42,7 @@ this.solve = function () {
   for (let n=2; n<=nMax; n++) {
     if (isSquare(n))
       continue;
-    const [p, q] = sqrtExpansions(n, expansions).last();
+    const [p, q] = sqrtExpansions(n, expansions).at(-1);
     const digitStr = String((p*10n**exponent)/q).substr(0, decimals);
     digitSum += sum(digits(digitStr));
   }

@@ -140,7 +140,7 @@ this.solve = function () {
  */
 
   // Init (working column) path sums with values from the last column.
-  let pathSums = matrix.map(r => r.last());
+  let pathSums = matrix.map(r => r.at(-1));
 
   // Start with column before last.
   for (let i=matrix.length-2; i>=0; i--) {
