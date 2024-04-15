@@ -21,6 +21,7 @@
             {
                 "code": 80
             }
-        ]
+        ],
+        "no-sparse-arrays": "off"
     }
 }
