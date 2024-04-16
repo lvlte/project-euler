@@ -83,7 +83,7 @@ this.solve = function () {
   //  n     pₙ/qₙ   Substitution                Integer solutions       (x, y)
   //  1.    1/1    y = 1(x - 1/2) + 1/2 = x   ( (1+1)/2, (1+1)/2 )     (1, 1)
   //  3.    7/5    y = 7/5(x - 1/2) + 1/2     ( (5+1)/2, (7+1)/2 )     (3, 4)
-  //  5.   17/12   y = 41/29(x - 1/2) + 1/2   ( (29+1)/2, (41+1)/2 )   (15, 21)
+  //  5.   41/29   y = 41/29(x - 1/2) + 1/2   ( (29+1)/2, (41+1)/2 )   (15, 21)
   //  ...
 
   // We just need to adjust the number of expansions of the continued fraction
@@ -129,9 +129,10 @@ this.solve2 = function () {
   // smaller roots back to the origin.
 
   // The first thing to note is that the diophantine equation used in the first
-  // method cannot be used because it's graph is not symmetric with respect to
-  // the line y = x, and it misses a ±kxy part (ie. by flipping roots we would
-  // be stuck in a square instead of jumping out of a spiral).
+  // method cannot be used because the corresponding hyperbola is symmetric with
+  // respect to the line x = 1/2 (ie. by flipping roots we would be stuck in a
+  // square instead of jumping out of a spiral; in general, Vieta jumping won't
+  // work with hyperbolas that are symmetric with x=k, y=k, or y=x).
 
   // Though the second equation (see Note above) fits the condition :
   //

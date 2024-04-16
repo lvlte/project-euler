@@ -41,7 +41,7 @@ this.solve = function () {
 
   // Now, since the same part can appear several times (in different partitions)
   // we want to avoid having to check it each time (ie. avoid a primality test
-  // for every permutations of the same part). We use a hash table for caching
+  // for every permutations of the same part). We use a lookup table for caching
   // the number of prime numbers that can be maid from a given part.
 
   // We also use the divisibility rule mentioned above to check whether or not

@@ -22,8 +22,8 @@ this.solve = function () {
   // the digits of interest, and thus avoid having to handle numbers with more
   // than 10 digits (@see modPow() function).
   //
-  //  n^k % mod = (n * n * ...) % mod
-  //            = ((n % mod) * (n % mod) * ...) % mod
+  //  n^k % m = (n * n * ...) % m
+  //            = ((n % m) * (n % m) * ...) % m
 
   // We can also optimize the computation by taking advantage of the fact that
   // the powers of a positive integer can only take a finite number of different
