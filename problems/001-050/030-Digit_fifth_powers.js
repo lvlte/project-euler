@@ -18,7 +18,7 @@
  * powers of their digits.
  */
 
-const { sum } = require('../../lib/math');
+const { digits } = require('../../lib/utils');
 
 this.solve = function () {
   // Finding numbers that can be written as the sum of fifth powers of their
@@ -38,7 +38,7 @@ this.solve = function () {
   const limit = 354294;
 
   // Sum of fifth powers of the digits of x.
-  const f = x => sum((''+x).split('').map(d => (+d)**5));
+  const f = x => digits(x).reduce((dSum, d) => dSum + d**5, 0);
 
   let s = 0;
   let x = 10; // requires at least 2 digits
