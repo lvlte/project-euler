@@ -22,7 +22,7 @@
  * which fifteen turns are played.
  */
 
-const { nkCombinations } = require('../../lib/combinatorics');
+const { combinations } = require('../../lib/combinatorics');
 const { product, factorial } = require('../../lib/math');
 const { range } = require('../../lib/utils');
 
@@ -83,7 +83,7 @@ this.solve = function () {
   let p = 0;
   const q = factorial(n+1);
 
-  for (const redpicks of nkCombinations(R, K)) {
+  for (const redpicks of combinations(R, K)) {
     p += product(redpicks);
   }
 
